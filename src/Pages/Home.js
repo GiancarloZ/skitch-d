@@ -125,7 +125,7 @@ const Home = props => {
                 indicatorColor="secondary"
                 textColor="secondary"                              
                 aria-label="icon tabs example"
-                className={classes.appBar}
+                className={classes.tabs}
                 justify="flex-end"
               >
                 <Tab icon={<HomeIcon  />} aria-label="feed"/>
