@@ -73,7 +73,7 @@ const Post = props => {
           const latLng = [lat, lng]
           setSpot({...spot, lat: latLng[0], lng: latLng[1]}) 
           dispatch(spotActions.newSpot(spot));
-          history.push(`/`)
+          history.push('/');
         }
         function handleTakePhoto (dataUri) {
           // Do stuff with the photo...
