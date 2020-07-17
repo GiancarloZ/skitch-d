@@ -59,3 +59,8 @@ export const Footer = styled.footer`
     margin: 0 10px;
   }
 `;
+
+export const FormStyle = styled.form`
+  padding-bottom: 50px;
+  
+`;

@@ -103,7 +103,7 @@ const Home = props => {
     return (
       <>
           {/* <CssBaseline/> */}
-          <TopBar />
+          <TopBar history={history}/>
           <>
           <Paper square className={classes.mid}>
             {/* {longitude}, {latitude} */}

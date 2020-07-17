@@ -2,7 +2,6 @@
   "name": "skitchd-app-react",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
   "engines": {
     "npm": "6.13.7",
     "node": "13.9.0"

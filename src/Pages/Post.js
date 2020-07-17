@@ -3,7 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import spotActions from '../redux/spotActions';
 // import { Camera } from "../Camera/index";
 import usePosition from '../Components/usePosition';
-import { Root, Preview, Footer, GlobalStyle, Cam } from "./styles";
+import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle } from "./styles";
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button'; 
@@ -177,6 +177,7 @@ const Post = props => {
       </Root>
      )}
     {cardImage &&
+      <FormStyle>
       <form onSubmit={handleSubmit}>
         
         <Input
@@ -215,6 +216,7 @@ const Post = props => {
         />
        <Input fullWidth type="submit" />
       </form>
+      </FormStyle>
     }
       {/* <Footer>
       {!isCameraOpen ? (
