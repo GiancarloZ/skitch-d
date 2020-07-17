@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -77,14 +77,15 @@ const LoginPage = props => {
             </DialogContentText>
             <form onSubmit={handleSubmit}>
             <h1>Login Page</h1>
-            <input
+            <Input
+                autoFocus="true"
                 type="text"
                 name="username"
                 value={username}
                 onChange={handleChange}
                 placeholder="Username"
             />
-            <input
+            <Input
                 type="password"
                 name="password"
                 value={password}

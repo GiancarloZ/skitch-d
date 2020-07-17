@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import userActions from '../redux/userActions';
 import { useSelector } from 'react-redux';
 
+import Input from '@material-ui/core/Input';
 import Button from "@material-ui/core/Button";
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Dialog from '@material-ui/core/Dialog';
@@ -57,14 +58,15 @@ const Signup = props => {
             </DialogContentText>
             <form onSubmit={handleSubmit}>
             <h1>Sign Up Page</h1>
-            <input
+            <Input
+                autoFocus="true"
                 type="text"
                 name="username"
                 value={username}
                 onChange={handleChange}
                 placeholder="Username"
             />
-            <input
+            <Input
                 type="password"
                 name="password"
                 value={password}
