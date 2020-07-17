@@ -6,7 +6,7 @@ import usePosition from '../Components/usePosition';
 import { Root, Preview, Footer, GlobalStyle, Cam } from "./styles";
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography'; 
+import Button from '@material-ui/core/Button'; 
 import Camera, { FACING_MODES, IMAGE_TYPES }  from 'react-html5-camera-photo';
 
 import 'react-html5-camera-photo/build/css/index.css';
@@ -177,7 +177,7 @@ const Post = props => {
       </Root>
      )}
     {cardImage &&
-      <form onSubmit={handleSubmit} style={{paddingBottom: 50}}>
+      <form onSubmit={handleSubmit}>
         
         <Input
           fullWidth={true}
@@ -213,7 +213,7 @@ const Post = props => {
           onChange={handleChange}
           placeholder="Image"
         />
-          <Input fullWidth type="submit" />
+       <Input fullWidth type="submit" />
       </form>
     }
       {/* <Footer>
