@@ -8,13 +8,13 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button'; 
 import Camera, { FACING_MODES, IMAGE_TYPES }  from 'react-html5-camera-photo';
-
 import 'react-html5-camera-photo/build/css/index.css';
 import Icon from '@material-ui/core/Icon';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Map from '../Components/Map';
 import Marker from '../Components/Marker';
+import LoginPage from './Login';
 // import Autocomplete from '@material-ui/lab/Autocomplete';
 // import TextField from '@material-ui/core/TextField';
 // const grabMapState = () => {
@@ -30,16 +30,11 @@ const Post = props => {
         const { history } = props;
         const dispatch = useDispatch();
         const spots = useSelector(state => state.spots);
-        const [lat, setLat] = useState([useSelector(state => state.currentPosition.lat)]);
-        const [lng, setLng] = useState([useSelector(state => state.currentPosition.lng)]);
+        const [lat, lng] = useSelector(state => state.currentPosition)
         const userId = useSelector(state => state.currentUser);
-        // const latitude = currentPosition[0]
-        // const longitude = currentPosition[1]
+
         console.log(lat, lng)
-        // const {latitude, longitude, error} = usePosition();
-        // console.log(latitude, longitude, error)
-        // const [position, setPosition] = useState(currentPosition)
-        // console.log(position)
+
         const [spot, setSpot] = useState({
             name: '',
             style: '',
@@ -49,47 +44,7 @@ const Post = props => {
             user_id: userId.id,
         })
 
-        // const getLocation = () => {
-        //   if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(displayLocation, showError, options)
-        
-        //   }
-        //   else {
-        //     M.toast({ html: 'Sorry, your browser does not support this feature... Please Update your Browser to enjoy it', classes: 'rounded' });
-        //   }
-        // }
-        // displayLocation = (position) => {
-        //   const lat = position.coords.latitude;
-        //   const lng = position.coords.longitude;
-        
-        //   const latlng = { lat, lng }
-          
-        //   showMap(latlng, lat, lng);
-        //   createMarker(latlng);
-        //   mapArea.style.display = "block";
-        //   getGeolocation(lat, lng);
-        
-        // }
-        
-        // useEffect(() => {
-        //   setPosition(currentPosition)
-        // }, [spot])
         console.log(spot)
-        // const iconStyle = {
-        //   borderRadius: '100px',
-        //   boxShadow: '3px 3px 1px #888888'
-        // }
-        // const center = {
-        //   lat:  25.8129533999999998, lng: -80.1540117 
-        // };
-        // const CurrentPin = ({text}) => {
-        //   return(
-        //     <div>
-        //       <Icon name="user circle outline" color='blue' size='big' style={iconStyle}/>
-        //       {text}
-        //   </div>
-        //   )
-        // }
       
         const [isCameraOpen, setIsCameraOpen] = useState(true);
         const [cardImage, setCardImage] = useState();
@@ -118,11 +73,6 @@ const Post = props => {
           const latLng = [lat, lng]
           setSpot({...spot, lat: latLng[0], lng: latLng[1]}) 
           dispatch(spotActions.newSpot(spot));
-          // const newSpot = {...spot, lat: lat, lng: lng};
-          // setSpot(newSpot)
-          const lastSpot = spots.slice(-1)[0] 
-          console.log(lastSpot)
-          console.log(spots)
           history.push(`/`)
         }
         function handleTakePhoto (dataUri) {
