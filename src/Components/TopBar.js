@@ -38,15 +38,20 @@ const useStyles = makeStyles(theme => ({
 const TopBar = props => {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+    const [openSignup, setOpenSignup] = React.useState(false);
     const user = useSelector(state => state.currentUser.username) || false;
     const handleClickOpen = () => {
         setOpen(true)
      };
- 
+     const handleClickOpenSignup = () => {
+        setOpenSignup(true)
+     };
      const handleClose = () => {
          setOpen(false);
      };
- 
+     const handleCloseSignup = () => {
+        setOpenSignup(false);
+    };
      const handleLogout = () => {
          dispatch(userActions.logoutUser());
      };
@@ -71,10 +76,11 @@ const TopBar = props => {
      const handleSignUpSubmit = e => {
         e.preventDefault();
         dispatch(userActions.newUserToDB(signUpForm));
-        setOpen(false)
+        setOpenSignup(false)
      }
      const handleChange = e =>
         setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
+     
      const handleSignUpChange = e => 
         setSignUpForm({ ...signUpForm, [e.target.name]: e.target.value });
      // Destructuring keys from our local state to use in the form
@@ -122,8 +128,8 @@ const TopBar = props => {
             </Dialog>
             </>) : (<Button color="secondary" className="button" onClick={handleLogout}>Logout</Button>);
         const signup = !user ? (<>
-            <Button color="secondary" className="button" onClick={handleClickOpen}>Sign Up</Button>
-                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Button color="secondary" className="button" onClick={handleClickOpenSignup}>Sign Up</Button>
+                <Dialog open={openSignup} onClose={handleCloseSignup} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">
                     <ButtonGroup disableElevation variant="contained" color="primary">
                         {/* <Button>Login</Button>
@@ -156,7 +162,7 @@ const TopBar = props => {
                     <Button onClick={handleSignUpSubmit} color="primary">
                         Submit
                     </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleCloseSignup} color="primary">
                         Cancel
                     </Button>
                     
@@ -175,7 +181,9 @@ const TopBar = props => {
                             Skitch'D
                         </Typography>
                     </Grid> 
-                    
+                    <Grid item >
+                        {signup}
+                    </Grid> 
                     <Grid item >
                         {login}
                     </Grid> 
