@@ -1,6 +1,7 @@
 // API CONSTANTS
 
 const BASE_URL = 'http://localhost:3000';
+const HEROKU_URL = "https://skitchd-app-api.herokuapp.com/"
 const USERS_URL = BASE_URL + '/users';
 const PERSIST_URL = BASE_URL + '/persist';
 const LOGIN_URL = BASE_URL + '/login';
@@ -27,7 +28,7 @@ const newUserToDB = userObj => dispatch => {
     },
     body: JSON.stringify(userObj)
   };
-  fetch('/users', config)
+  fetch(HEROKU_URL + '/users', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -53,7 +54,7 @@ const loginUserToDB = userCredentials => dispatch => {
     },
     body: JSON.stringify(userCredentials)
   };
-  fetch('/login', config)
+  fetch(HEROKU_URL + '/login', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -68,7 +69,7 @@ const persistUser = () => dispatch => {
       Authorization: `bearer ` + localStorage.token
     }
   };
-  fetch('/persist', config)
+  fetch(HEROKU_URL + '/persist', config)
     .then(r => r.json())
     .then(userInstance => {
       dispatch(setUserAction(userInstance));

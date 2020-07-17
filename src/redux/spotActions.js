@@ -1,6 +1,7 @@
 // API CONSTANTS
 
 const BASE_URL = 'http://localhost:3000';
+const HEROKU_URL = "https://skitchd-app-api.herokuapp.com/"
 const SPOTS_URL = BASE_URL + '/spots';
 // const PERSIST_URL = BASE_URL + '/persist';
 // const LOGIN_URL = BASE_URL + '/login';
@@ -26,7 +27,7 @@ const loadAllSpots = () => dispatch => {
       'Content-Type': 'application/json'
     },
   };
-  fetch('/spots', config)
+  fetch(HEROKU_URL + '/spots', config)
     .then(r => r.json())
     .then(data => {
         console.log(data)
@@ -43,7 +44,7 @@ const newSpot = spotObj => dispatch => {
     },
     body: JSON.stringify(spotObj)
   };
-  fetch('/spots', config)
+  fetch(HEROKU_URL + '/spots', config)
     .then(r => r.json())
     .then(data => {
       console.log(data)
