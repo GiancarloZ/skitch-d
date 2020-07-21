@@ -102,7 +102,7 @@ const Spots = props => {
                     <CardActionArea>
                         <CardContent style={{padding:"0", margin: "0" }}>
                             <Grid container className={classes.typography}>
-                                {id ? (
+                                {loading ? (
                                     <Grid item className={classes.map}>
                                         <Typography gutterBottom variant="h5" component="h2" >
                                             {name}
@@ -125,7 +125,7 @@ const Spots = props => {
                                         <Skeleton width="80%" component="p"/>
                                     </Grid>
                                 )}
-                                {id ? (
+                                {loading ? (
                                     <Grid item className={classes.map}>
                                         <CardMedia
                                             component="img"
@@ -140,7 +140,7 @@ const Spots = props => {
                                     </Grid>
                                 )}
                             </Grid>
-                            {id ? (
+                            {loading ? (
                                 <CardMedia
                                     component="img"
                                     // className={classes.media}
