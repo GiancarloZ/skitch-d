@@ -81,8 +81,7 @@ const Spot = props => {
                         <CardContent style={{padding:"0", margin: "0" }}>
                             <Grid container className={classes.typography}>
                                 <Grid item className={classes.map}>
-                                    <Typography gutterBottom variant="h5" component="h2" >
-                                        {/* {loading ? <Skeleton /> : `${name}`}  */}
+                                    <Typography gutterBottom variant="h4" component="h2" >
                                         {name}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p" >

@@ -69,6 +69,7 @@ const Home = props => {
     console.log(history)
     console.log(page)
     const dispatch = useDispatch();
+    const spots =  useSelector(state => state.spots);
     const {latitude, longitude, error} = usePosition();
     console.log(longitude, latitude)
     const latLng = [latitude, longitude];
@@ -109,7 +110,7 @@ const Home = props => {
           <Paper square className={classes.mid}>
             {/* {longitude}, {latitude} */}
             {selectedTab === 0 && <Feed />}
-            {selectedTab === 1 && <Spots history={history} />}
+            {selectedTab === 1 && <Spots history={history} spots={spots}/>}
             {selectedTab === 2 && <Post history={history}/>}
             {selectedTab === 3 && <Profile/>}
             {selectedTab === 4 && <Messages/>}

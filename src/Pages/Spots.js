@@ -79,8 +79,8 @@ const Spots = props => {
     const dispatch = useDispatch();
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-    const { history} = props;
-    const spots =  useSelector(state => state.spots);
+    const { history, spots} = props;
+    // const spots =  useSelector(state => state.spots);
     const [filter, setFilter] = React.useState("");
     console.log(props)
     const [loading, setLoading] = React.useState(false);
@@ -150,7 +150,7 @@ const Spots = props => {
                             <Grid container className={classes.typography}>
                                 {/* {loading ? ( */}
                                     <Grid item className={classes.map}>
-                                        <Typography gutterBottom variant="h5" component="h2" >
+                                        <Typography gutterBottom variant="h4" component="h2" >
                                             {name}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p" >
