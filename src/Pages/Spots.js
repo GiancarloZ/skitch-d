@@ -20,12 +20,15 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Paper from '@material-ui/core/Paper';
-import { CssBaseline, CircularProgress } from '@material-ui/core';
+// import { CssBaseline, CircularProgress } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Map from '../Components/Map';
+import Skeleton from '@material-ui/lab/Skeleton';
+
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -70,10 +73,11 @@ const Spots = props => {
     const dispatch = useDispatch();
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-    const { history } = props;
+    const { history, loading=false} = props;
     const spots = useSelector(state => state.spots);
     const [filter, setFilter] = React.useState("");
     console.log(history)
+    console.log(loading)
     const handleClick = () => {
       setOpen(!open);
     };
@@ -83,58 +87,71 @@ const Spots = props => {
     }, [])
    
 
-    const getSpotCard = (spotId) => {
+    const getSpotCard = (spotId, loading) => {
         const { id, name, style, user_id, lat, lng, image } = spots[spotId]
         const handleOnClick = () => {
             history.push(`/spots/${id}`)
         }
+    
         return(
             <React.Fragment key={spotId}>
-                <Grid className={classes.grid}>  </Grid>
+                {/* <Grid className={classes.grid}>  </Grid> */}
+   
                 <Card className={classes.root} onClick={handleOnClick}>
                     <div className={classes.details}>
                     <CardActionArea>
-                        
                         <CardContent style={{padding:"0", margin: "0" }}>
-                        <Grid container className={classes.typography}>
-                            <Grid item className={classes.map}>
-                            <Typography gutterBottom variant="h5" component="h2" >
-                                {name}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p" >
-                                <b>Style:</b> {style}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                <b>created by:</b> <b>{user_id}</b>
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b>
-                            </Typography>
+                            <Grid container className={classes.typography}>
+                                {id ? (
+                                    <Grid item className={classes.map}>
+                                        <Typography gutterBottom variant="h5" component="h2" >
+                                            {name}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p" >
+                                            <b>Style:</b> {style}
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            <b>created by:</b> <b>{user_id}</b>
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b>
+                                        </Typography>
+                                    </Grid>
+                                ) : (
+                                    <Grid item className={classes.map}> 
+                                        <Skeleton width="50%" component="h2" />
+                                        <Skeleton width="60%" component="p"/>
+                                        <Skeleton width="80%" component="p"/>
+                                        <Skeleton width="80%" component="p"/>
+                                    </Grid>
+                                )}
+                                {id ? (
+                                    <Grid item className={classes.map}>
+                                        <CardMedia
+                                            component="img"
+                                            className={classes.media}
+                                            image="/google-map-defualt.jfif"
+                                            title="Google Map Default"
+                                        />
+                                    </Grid>
+                                ) : (
+                                    <Grid item className={classes.map}>
+                                        <Skeleton variant="rect" className={classes.media}/>
+                                    </Grid>
+                                )}
                             </Grid>
-                            {/* </div>
-                            <div className={classes.map}> */}
-                             <Grid item className={classes.map}>
-                            <CardMedia
-                                component="img"
-                                className={classes.media}
-                                image="/google-map-defualt.jfif"
-                                title="Google Map Default"
-                            />
-                            {/* <Map lat={lat} lng={lng} >
-                             
-                            </Map> */}
-
-                            </Grid>
-                            
-                        </Grid>
-                        <CardMedia
-                            component="img"
-                            // className={classes.media}
-                            image={image ? image : "/rails-default.jpg"}
-                            title="Rail Default"
-                            // height="100"
-                            width="151"
-                        />
+                            {id ? (
+                                <CardMedia
+                                    component="img"
+                                    // className={classes.media}
+                                    image={image ? image : "/rails-default.jpg"}
+                                    title="Rail Default"
+                                    // height="100"
+                                    width="151"
+                                />
+                            ) : (
+                                <Skeleton variant="rect" width="151" height="120px"/>
+                            )}
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
@@ -147,7 +164,7 @@ const Spots = props => {
                     </CardActions>
                     </div>
                 </Card>
-              
+               
             </React.Fragment>
         )
     }
@@ -156,14 +173,55 @@ const Spots = props => {
         <>
                 {spots ? (
                     <Paper className={classes.paper}>
-                    {Object.keys(spots).map(
-                        (spotId) => 
-                        spots[spotId].name.includes(filter) &&
-                        getSpotCard(spotId)
-                    )}
-                       </Paper> 
-                    ) : (
+                            {Object.keys(spots).reverse().map(
+                                (spotId, loading) => 
+                                spots[spotId].name.includes(filter) &&
+                                getSpotCard(spotId, loading)
+                            )}
+                    </Paper>
+                    
+                //    <Grid className={classes.grid}>  </Grid>
+                //     <Card className={classes.root} >
+                //     <div className={classes.details}>
+                //         <CardActionArea>
+                //         <CardContent style={{padding:"0", margin: "0" }}>
+                //         <Grid container className={classes.typography}>
+                //         <Grid item className={classes.map}> 
+                //         <Skeleton width="70%" height={10} />
+                       
+                        
+                //         <Skeleton width="60%" height={10} />
+                     
+                       
+                //         <Skeleton width="50%" height={10} />
+                 
+                     
+                //         <Skeleton width="50%" height={10} />
+                 
+                //         </Grid>
+                //         <Grid item className={classes.map}>
+                //         <Skeleton variant="rect"  className={classes.media} />
+              
+                //         </Grid>
+                //         </Grid>
+                    
+                //         <Skeleton variant="rect"  />
+                //         </CardContent>
+                //         </CardActionArea>
+                //         </div> 
+                    //     <CardActions>
+                    //     <Button size="small" color="primary">
+                    //         <StarBorder/>
+                    //     </Button>
+                    //     <Button size="small" color="primary" alignItem="flex-end">                                     
+                    //         <SendIcon />
+                    //     </Button>
+                    // </CardActions> 
+                    // </Card> 
+                ) : (
                         <CircularProgress />
+                  
+                    
                 )}
             
         </>

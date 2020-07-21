@@ -52,14 +52,19 @@ const Spot = props => {
     console.log(spot)
     console.log(history)
     const generateSpotCard = () => {
-        const { id, name, style, lat, lng, user_id } = spots[spotId - 1]
-        return (
-            <>
-            <AppBar position="fixed" >
+        const { id, name, style, user_id, lat, lng, image } = spots[spotId - 1]
+        const handleOnClick = () => {
+            history.push(`/spots/${id}`)
+        }
+    
+        return(
+            <React.Fragment key={spotId}>
+                {/* <Grid className={classes.grid}>  </Grid> */}
+                <AppBar position="fixed" >
                 <Grid container alignItems="center" justify="space-between">
                    
                     <Grid item >
-                        <Button variant="contained" onClick={() => history.goBack()}>
+                        <Button variant="text" color="secondary" onClick={() => history.goBack()}>
                             Back
                         </Button>
                     </Grid> 
@@ -68,46 +73,46 @@ const Spot = props => {
                     </Grid> 
 
                 </Grid>
-            </AppBar>
-            <Paper className={classes.paper}>
-                <Card className={classes.root}>
+                </AppBar>
+                <Paper className={classes.paper}>
+                <Card className={classes.root} onClick={handleOnClick}>
                     <div className={classes.details}>
                     <CardActionArea>
                         <CardContent style={{padding:"0", margin: "0" }}>
-                        <Grid container className={classes.typography}>
-                            <Grid item className={classes.map}>
-                            <Typography gutterBottom variant="h5" component="h2" >
-                                {name}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p" >
-                                <b>Style:</b> {style}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                <b>created by:</b> <b>{user_id}</b>
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                <b>Latitude:</b> <b>{lat}</b><br></br> <b>Longitude:</b> <b>{lng}</b>
-                            </Typography>
+                            <Grid container className={classes.typography}>
+                                <Grid item className={classes.map}>
+                                    <Typography gutterBottom variant="h5" component="h2" >
+                                        {/* {loading ? <Skeleton /> : `${name}`}  */}
+                                        {name}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p" >
+                                        <b>Style:</b> {style}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        <b>created by:</b> <b>{user_id}</b>
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b>
+                                    </Typography>
+                                </Grid>
+                            
+                                <Grid item className={classes.map}>
+                                    <CardMedia
+                                        component="img"
+                                        className={classes.media}
+                                        image="/google-map-defualt.jfif"
+                                        title="Google Map Default"
+                                    />
+                                </Grid>
                             </Grid>
-                            {/* </div>
-                            <div className={classes.map}> */}
-                             <Grid item className={classes.map}>
                             <CardMedia
                                 component="img"
-                                className={classes.media}
-                                image="/google-map-defualt.jfif"
-                                title="Google Map Default"
+                                // className={classes.media}
+                                image={image ? image : "/rails-default.jpg"}
+                                title="Rail Default"
+                                // height="100"
+                                width="151"
                             />
-                            </Grid>                   
-                        </Grid>
-                        <CardMedia
-                            component="img"
-                            // className={classes.media}
-                            image="/rails-default.jpg"
-                            title="Rail Default"
-                            // height="100"
-                            width="151"
-                        />
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
@@ -119,10 +124,81 @@ const Spot = props => {
                         </Button>
                     </CardActions>
                     </div>
-                </Card> 
+                </Card>
                 <Tricks />
                 </Paper>
-            </>     
+            </React.Fragment>
+        // const { id, name, style, lat, lng, user_id } = spots[spotId - 1]
+        // return (
+        //     <>
+        //     <AppBar position="fixed" >
+        //         <Grid container alignItems="center" justify="space-between">
+                   
+        //             <Grid item >
+        //                 <Button variant="contained" onClick={() => history.goBack()}>
+        //                     Back
+        //                 </Button>
+        //             </Grid> 
+                    
+        //             <Grid item >
+        //             </Grid> 
+
+        //         </Grid>
+        //     </AppBar>
+        //     <Paper className={classes.paper}>
+        //         <Card className={classes.root}>
+        //             <div className={classes.details}>
+        //             <CardActionArea>
+        //                 <CardContent style={{padding:"0", margin: "0" }}>
+        //                 <Grid container className={classes.typography}>
+        //                     <Grid item className={classes.map}>
+        //                     <Typography gutterBottom variant="h5" component="h2" >
+        //                         {name}
+        //                     </Typography>
+        //                     <Typography variant="body2" color="textSecondary" component="p" >
+        //                         <b>Style:</b> {style}
+        //                     </Typography>
+        //                     <Typography variant="body2" color="textSecondary" component="p">
+        //                         <b>created by:</b> <b>{user_id}</b>
+        //                     </Typography>
+        //                     <Typography variant="body2" color="textSecondary" component="p">
+        //                         <b>Latitude:</b> <b>{lat}</b><br></br> <b>Longitude:</b> <b>{lng}</b>
+        //                     </Typography>
+        //                     </Grid>
+        //                     {/* </div>
+        //                     <div className={classes.map}> */}
+        //                      <Grid item className={classes.map}>
+        //                     <CardMedia
+        //                         component="img"
+        //                         className={classes.media}
+        //                         image="/google-map-defualt.jfif"
+        //                         title="Google Map Default"
+        //                     />
+        //                     </Grid>                   
+        //                 </Grid>
+        //                 <CardMedia
+        //                     component="img"
+        //                     // className={classes.media}
+        //                     image="/rails-default.jpg"
+        //                     title="Rail Default"
+        //                     // height="100"
+        //                     width="151"
+        //                 />
+        //                 </CardContent>
+        //             </CardActionArea>
+        //             <CardActions>
+        //                 <Button size="small" color="primary">
+        //                     <StarBorder/>
+        //                 </Button>
+        //                 <Button size="small" color="primary" alignItem="flex-end">                                     
+        //                     <SendIcon />
+        //                 </Button>
+        //             </CardActions>
+        //             </div>
+        //         </Card> 
+        //         <Tricks />
+        //         </Paper>
+        //     </>     
         )
     }
     return (<>

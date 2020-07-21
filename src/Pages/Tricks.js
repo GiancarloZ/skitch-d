@@ -3,6 +3,9 @@ import {CircularProgress, Button, AppBar, Grid, Paper, Card, CardActions, Typogr
 import SendIcon from '@material-ui/icons/Send';
 import StarBorder from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -47,7 +50,14 @@ const Tricks = () => {
 
     return (
         <>
-        <h1><u>Tricks</u></h1> 
+        <Typography variant="h3">
+            Tricks
+            
+            <IconButton color="secondary" aria-label="add trick" edge="end">
+                <AddIcon />
+            </IconButton>
+        </Typography>
+
         <Card className={classes.root}>
                     <div className={classes.details}>
                     <CardActionArea>
