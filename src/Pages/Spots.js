@@ -93,10 +93,10 @@ const Spots = props => {
     useEffect(()=>{
         console.log("here")
         setLoading(true)
-       
-        spots && setLoading(false)  
-
-    }, [])
+        console.log(loading)
+        spots.length >= 10 && setLoading(false)
+        console.log(loading)
+    }, [spots])
    
     const skeletonCard = () => {
         return (
