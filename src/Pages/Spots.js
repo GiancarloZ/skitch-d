@@ -80,7 +80,7 @@ const Spots = props => {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
     const { history} = props;
-    const spots = useSelector(state => state.spots);
+    const spots =  useSelector(state => state.spots);
     const [filter, setFilter] = React.useState("");
     console.log(props)
     const [loading, setLoading] = React.useState(false);
@@ -89,14 +89,13 @@ const Spots = props => {
     const handleClick = () => {
       setOpen(!open);
     };
+
     useEffect(()=>{
         console.log("here")
         setLoading(true)
-        const timer = setTimeout(() => {
-            dispatch(spotActions.loadAllSpots())
-            setLoading(false)
-        }, 2000);
-        return () => clearTimeout(timer);
+       
+        spots && setLoading(false)  
+
     }, [])
    
     const skeletonCard = () => {
