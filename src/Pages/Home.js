@@ -90,7 +90,8 @@ const Home = props => {
     }
 
     useEffect(()=>{
-        dispatch(spotActions.loadAllSpots())
+      dispatch(spotActions.loadAllSpots())
+      
     }, [])
 
     const classes = useStyles();
@@ -108,7 +109,7 @@ const Home = props => {
           <Paper square className={classes.mid}>
             {/* {longitude}, {latitude} */}
             {selectedTab === 0 && <Feed />}
-            {selectedTab === 1 && <Spots history={history}/>}
+            {selectedTab === 1 && <Spots history={history} />}
             {selectedTab === 2 && <Post history={history}/>}
             {selectedTab === 3 && <Profile/>}
             {selectedTab === 4 && <Messages/>}

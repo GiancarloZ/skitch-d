@@ -20,6 +20,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+
 // import { CssBaseline, CircularProgress } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -67,15 +69,21 @@ const useStyles = makeStyles(theme => ({
     },
     media: {
         height: "120px"
+    },
+    bigMedia: {
+        height: "120px",
+        width: "100%"
     }
   }));
 const Spots = props => {
     const dispatch = useDispatch();
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-    const { history, loading=false} = props;
+    const { history} = props;
     const spots = useSelector(state => state.spots);
     const [filter, setFilter] = React.useState("");
+    console.log(props)
+    const [loading, setLoading] = React.useState(false);
     console.log(history)
     console.log(loading)
     const handleClick = () => {
@@ -83,16 +91,55 @@ const Spots = props => {
     };
     useEffect(()=>{
         console.log("here")
-        dispatch(spotActions.loadAllSpots())
+        setLoading(true)
+        const timer = setTimeout(() => {
+            dispatch(spotActions.loadAllSpots())
+            setLoading(false)
+        }, 2000);
+        return () => clearTimeout(timer);
     }, [])
    
-
+    const skeletonCard = () => {
+        return (
+            <Card className={classes.root} >
+            <div className={classes.details}>
+            <CardActionArea>
+            <CardContent style={{padding:"0", margin: "0" }}>
+                    <Grid container className={classes.typography}>
+            <Grid item className={classes.map}> 
+                <Skeleton width="50%" component="h1" />
+                <Skeleton width="60%" component="p"/>
+                <Skeleton width="80%" component="p"/>
+                <Skeleton width="80%" component="p"/>
+            </Grid>
+            <Grid item className={classes.map}>
+                <Skeleton variant="rect" className={classes.media}/>
+            </Grid>
+            <Grid item className={classes.bigMedia}>
+                <Skeleton variant="rect" className={classes.media}/>
+            </Grid>
+            </Grid>
+            </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary">
+                    <StarBorder/>
+                </Button>
+                <Button size="small" color="primary" alignItem="flex-end">                                     
+                    <SendIcon />
+                </Button>
+            </CardActions>
+            </div>
+            </Card>
+        )
+    }
+    
     const getSpotCard = (spotId, loading) => {
         const { id, name, style, user_id, lat, lng, image } = spots[spotId]
         const handleOnClick = () => {
             history.push(`/spots/${id}`)
         }
-    
+      
         return(
             <React.Fragment key={spotId}>
                 {/* <Grid className={classes.grid}>  </Grid> */}
@@ -102,7 +149,7 @@ const Spots = props => {
                     <CardActionArea>
                         <CardContent style={{padding:"0", margin: "0" }}>
                             <Grid container className={classes.typography}>
-                                {loading ? (
+                                {/* {loading ? ( */}
                                     <Grid item className={classes.map}>
                                         <Typography gutterBottom variant="h5" component="h2" >
                                             {name}
@@ -117,15 +164,15 @@ const Spots = props => {
                                             <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b>
                                         </Typography>
                                     </Grid>
-                                ) : (
+                                {/* ) : (
                                     <Grid item className={classes.map}> 
-                                        <Skeleton width="50%" component="h2" />
+                                        <Skeleton width="50%" component="h1" />
                                         <Skeleton width="60%" component="p"/>
                                         <Skeleton width="80%" component="p"/>
                                         <Skeleton width="80%" component="p"/>
                                     </Grid>
-                                )}
-                                {loading ? (
+                                )} */}
+                                {/* {loading ? ( */}
                                     <Grid item className={classes.map}>
                                         <CardMedia
                                             component="img"
@@ -134,13 +181,13 @@ const Spots = props => {
                                             title="Google Map Default"
                                         />
                                     </Grid>
-                                ) : (
+                                {/* ) : (
                                     <Grid item className={classes.map}>
                                         <Skeleton variant="rect" className={classes.media}/>
                                     </Grid>
-                                )}
+                                )} */}
                             </Grid>
-                            {loading ? (
+                            {/* {loading ? ( */}
                                 <CardMedia
                                     component="img"
                                     // className={classes.media}
@@ -149,9 +196,9 @@ const Spots = props => {
                                     // height="100"
                                     width="151"
                                 />
-                            ) : (
+                            {/* ) : (
                                 <Skeleton variant="rect" width="151" height="120px"/>
-                            )}
+                            )} */}
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
@@ -171,58 +218,29 @@ const Spots = props => {
     console.log(spots)
     return (
         <>
-                {spots ? (
-                    <Paper className={classes.paper}>
-                            {Object.keys(spots).reverse().map(
-                                (spotId, loading) => 
-                                spots[spotId].name.includes(filter) &&
-                                getSpotCard(spotId, loading)
-                            )}
-                    </Paper>
-                    
-                //    <Grid className={classes.grid}>  </Grid>
-                //     <Card className={classes.root} >
-                //     <div className={classes.details}>
-                //         <CardActionArea>
-                //         <CardContent style={{padding:"0", margin: "0" }}>
-                //         <Grid container className={classes.typography}>
-                //         <Grid item className={classes.map}> 
-                //         <Skeleton width="70%" height={10} />
-                       
-                        
-                //         <Skeleton width="60%" height={10} />
-                     
-                       
-                //         <Skeleton width="50%" height={10} />
-                 
-                     
-                //         <Skeleton width="50%" height={10} />
-                 
-                //         </Grid>
-                //         <Grid item className={classes.map}>
-                //         <Skeleton variant="rect"  className={classes.media} />
+         <Paper className={classes.paper}>
+            {loading &&
+                <>
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                </>
+            } 
+            {!loading &&
+
+                   
+                Object.keys(spots).reverse().map(
+                        (spotId, loading) =>  
+                        spots[spotId].name.includes(filter) &&
+                        getSpotCard(spotId, loading)
+                ) 
               
-                //         </Grid>
-                //         </Grid>
-                    
-                //         <Skeleton variant="rect"  />
-                //         </CardContent>
-                //         </CardActionArea>
-                //         </div> 
-                    //     <CardActions>
-                    //     <Button size="small" color="primary">
-                    //         <StarBorder/>
-                    //     </Button>
-                    //     <Button size="small" color="primary" alignItem="flex-end">                                     
-                    //         <SendIcon />
-                    //     </Button>
-                    // </CardActions> 
-                    // </Card> 
-                ) : (
-                        <CircularProgress />
-                  
-                    
-                )}
+            }
+               
+        </Paper>
             
         </>
     )
