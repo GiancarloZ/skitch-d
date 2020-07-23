@@ -73,7 +73,10 @@ const useStyles = makeStyles(theme => ({
     bigMedia: {
         height: "120px",
         width: "100%"
-    }
+    },
+    image: {
+        height: "100%"
+    },
   }));
 const Spots = props => {
     const dispatch = useDispatch();
@@ -124,7 +127,7 @@ const Spots = props => {
                 <Button size="small" color="primary">
                     <StarBorder/>
                 </Button>
-                <Button size="small" color="primary" alignItem="flex-end">                                     
+                <Button size="small" color="primary" >                                     
                     <SendIcon />
                 </Button>
             </CardActions>
@@ -189,7 +192,7 @@ const Spots = props => {
                             {/* {loading ? ( */}
                                 <CardMedia
                                     component="img"
-                                    // className={classes.media}
+                                    className={classes.image}
                                     image={image ? image : "/rails-default.jpg"}
                                     title="Rail Default"
                                     // height="100"
@@ -204,7 +207,7 @@ const Spots = props => {
                         <Button size="small" color="primary">
                             <StarBorder/>
                         </Button>
-                        <Button size="small" color="primary" alignItem="flex-end">                                     
+                        <Button size="small" color="primary" >                                     
                             <SendIcon />
                         </Button>
                     </CardActions>
@@ -228,9 +231,18 @@ const Spots = props => {
                     {skeletonCard()}
                 </>
             } 
-            {!loading &&
+            {!loading && !spots &&
+                <>
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                    {skeletonCard()}
+                </>
+            } 
+            {!loading && spots.length > 10 &&
 
-                   
                 Object.keys(spots).reverse().map(
                         (spotId, loading) =>  
                         spots[spotId].name.includes(filter) &&

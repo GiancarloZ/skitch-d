@@ -9,12 +9,11 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button'; 
 import Camera, { FACING_MODES, IMAGE_TYPES }  from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
+
+import Map from '../Components/Map';
 import Icon from '@material-ui/core/Icon';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import Map from '../Components/Map';
-import Marker from '../Components/Marker';
-import LoginPage from './Login';
 // import Autocomplete from '@material-ui/lab/Autocomplete';
 // import TextField from '@material-ui/core/TextField';
 // const grabMapState = () => {
