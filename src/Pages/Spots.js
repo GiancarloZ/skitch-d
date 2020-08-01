@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
         width: "100%"
     },
     image: {
-        height: "100%"
+        height: "300px"
     },
   }));
 const Spots = props => {
@@ -137,7 +137,8 @@ const Spots = props => {
     }
     
     const getSpotCard = (spotId, loading) => {
-        const { id, name, style, user_id, lat, lng, image } = spots[spotId]
+        const spot = spots[spotId]
+        const { id, name, style, user_id, lat, lng, image } = spot
         const handleOnClick = () => {
             history.push(`/spots/${id}`)
         }
@@ -161,20 +162,13 @@ const Spots = props => {
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">
                                             <b>created by:</b> <b>{user_id}</b>
+                                            {spot.user_id.username}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">
                                             <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b>
                                         </Typography>
                                     </Grid>
-                                {/* ) : (
-                                    <Grid item className={classes.map}> 
-                                        <Skeleton width="50%" component="h1" />
-                                        <Skeleton width="60%" component="p"/>
-                                        <Skeleton width="80%" component="p"/>
-                                        <Skeleton width="80%" component="p"/>
-                                    </Grid>
-                                )} */}
-                                {/* {loading ? ( */}
+                             
                                     <Grid item className={classes.map}>
                                         <CardMedia
                                             component="img"
@@ -183,13 +177,9 @@ const Spots = props => {
                                             title="Google Map Default"
                                         />
                                     </Grid>
-                                {/* ) : (
-                                    <Grid item className={classes.map}>
-                                        <Skeleton variant="rect" className={classes.media}/>
-                                    </Grid>
-                                )} */}
+                               
                             </Grid>
-                            {/* {loading ? ( */}
+                           
                                 <CardMedia
                                     component="img"
                                     className={classes.image}
@@ -198,9 +188,7 @@ const Spots = props => {
                                     // height="100"
                                     width="151"
                                 />
-                            {/* ) : (
-                                <Skeleton variant="rect" width="151" height="120px"/>
-                            )} */}
+                           
                         </CardContent>
                     </CardActionArea>
                     <CardActions>

@@ -5,7 +5,7 @@ import StarBorder from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
-
+import PostTrick from './PostTrick'
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -112,6 +112,12 @@ const Tricks = props => {
             </React.Fragment>
         )
     }
+
+    const handlePostClick = () => {
+        console.log("clicked")
+        history.push(`/spots/${spotId}/new`)
+        // return (<PostTrick spot={spot}/>)
+    }
     return (
         <>
         <Paper elevation={4}>
@@ -122,7 +128,7 @@ const Tricks = props => {
             </Typography>   
             </Grid>
             <Grid item>
-            <IconButton color="secondary" aria-label="post trick" edge="start">
+            <IconButton color="secondary" aria-label="post trick" edge="start" onClick={handlePostClick}>
                 <AddIcon />
             </IconButton>
             </Grid>

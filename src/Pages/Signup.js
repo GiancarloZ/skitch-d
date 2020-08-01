@@ -31,7 +31,7 @@ const Signup = props => {
     e.preventDefault();
     const { history } = props;
     dispatch(userActions.newUserToDB(signupForm));
-    history.push('/');
+    setOpen(false);
   };
 
   const handleClickOpen = () => {
@@ -59,7 +59,7 @@ const Signup = props => {
             <form onSubmit={handleSubmit}>
             <h1>Sign Up Page</h1>
             <Input
-                autoFocus="true"
+                autoFocus={true}
                 type="text"
                 name="username"
                 value={username}

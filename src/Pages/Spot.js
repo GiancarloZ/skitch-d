@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         height: "120px"
     },
     image: {
-        height: "100%"
+        height: "350px"
     },
     paper: {    
         paddingBottom: 50,
@@ -110,7 +110,7 @@ const Spot = props => {
                             </Grid>
                             <CardMedia
                                 component="img"
-                                className={classes.height}
+                                className={classes.image}
                                 image={image ? image : "/rails-default.jpg"}
                                 title="Rail Default"
                                 // height="100"
@@ -128,7 +128,7 @@ const Spot = props => {
                     </CardActions>
                     </div>
                 </Card>
-                <Tricks spot={spot} spots={spots}/>
+                <Tricks history={history} spot={spot} spots={spots}/>
                 </Paper>
             </React.Fragment>
         

@@ -4,9 +4,8 @@ import spotActions from '../redux/spotActions';
 // import { Camera } from "../Camera/index";
 import usePosition from '../Components/usePosition';
 import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle } from "./styles";
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button'; 
+import {Input, Select, Button, Grid, AppBar} from '@material-ui/core';
+
 import Camera, { FACING_MODES, IMAGE_TYPES }  from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
 
@@ -14,24 +13,22 @@ import Map from '../Components/Map';
 import Icon from '@material-ui/core/Icon';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-// import Autocomplete from '@material-ui/lab/Autocomplete';
-// import TextField from '@material-ui/core/TextField';
-// const grabMapState = () => {
-        
-//   const MapState = React.useContext(MapState)
-//   console.log(MapState)
- 
-// }
+
+import LoginPage from '../Pages/Login';
+import Signup from '../Pages/Signup';
+import Spot from './Spot';
+
 const Post = props => {
 
         // const {latitude, longitude} = props;
         // console.log(longitude, latitude)
-        const { history } = props;
+        const { history, spots } = props;
         const dispatch = useDispatch();
-        const spots = useSelector(state => state.spots);
+        // spots = useSelector(state => state.spots);
         const [lat, lng] = useSelector(state => state.currentPosition)
         const userId = useSelector(state => state.currentUser);
-
+        const [isCameraOpen, setIsCameraOpen] = useState(true);
+        const [cardImage, setCardImage] = useState();
         console.log(lat, lng)
 
         const [spot, setSpot] = useState({
@@ -44,14 +41,12 @@ const Post = props => {
         })
 
         console.log(spot)
-      
-        const [isCameraOpen, setIsCameraOpen] = useState(true);
-        const [cardImage, setCardImage] = useState();
+        
         
         function handleTakePhotoAnimationDone (dataUri) {
           setCardImage(dataUri);
-          setIsCameraOpen(false)
           setSpot({...spot, image: dataUri})
+          setIsCameraOpen(false)
         }
         const isFullscreen = false;
         // Controlled form functions
@@ -69,17 +64,14 @@ const Post = props => {
         }, [])
         const handleSubmit = e => {
           e.preventDefault();
-          const latLng = [lat, lng]
-          setSpot({...spot, lat: latLng[0], lng: latLng[1]}) 
           dispatch(spotActions.newSpot(spot));
           history.push('/');
+          console.log("heres")
         }
         function handleTakePhoto (dataUri) {
           // Do stuff with the photo...
           console.log('takePhoto');
         }
-      
-     
         function handleCameraError (error) {
           console.log('handleCameraError', error);
         }
@@ -91,20 +83,20 @@ const Post = props => {
         function handleCameraStop () {
           console.log('handleCameraStop');
         }
+
+        const handleOnClick = () => {
+          history.goBack()
+          setIsCameraOpen(false)
+          console.log("clicked")
+        }
         const {name, style, level, image} = spot;
-        // useEffect(() => {
-        //   const longitude = {longitude}
-        //   console.log(longitude, latitude)
-        //     setSpot({
-        //       ...spot,
-        //       lat: latitude, lng: longitude,
-        //       currentPosition: true
-        //     })
-        // }, [console.log(spot)])
+        const uniqueStyle = [...new Set(spots.map(item => item.style))];
     return (
 
     <>
+     
      {isCameraOpen && (
+       
        <Root >
         <Camera
           onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
@@ -126,7 +118,7 @@ const Post = props => {
       </Root>
      )}
     {cardImage &&
-      <FormStyle>
+   
       <form onSubmit={handleSubmit}>
         
         <Input
@@ -143,11 +135,11 @@ const Post = props => {
           value={style}
           onChange={handleChange}
           placeholder="Style"
-          defaultValue="Style"
+          defaultValue="Rail"
         >
-         {spots.map(e => 
-            <option value={e.style}>{e.style}</option>
-          )}
+         {uniqueStyle.map(e =>        
+            <option value={e} key={e.id}>{e}</option>
+         )}
         </Select>
         <Map>
         </Map>
@@ -163,9 +155,9 @@ const Post = props => {
           onChange={handleChange}
           placeholder="Image"
         />
-       <Input fullWidth type="submit" />
+        <Input fullWidth type="submit" style={{paddingBottom: "50px"}}/>
       </form>
-      </FormStyle>
+
     }
       {/* <Footer>
       {!isCameraOpen ? (

@@ -42,6 +42,7 @@ const Map = (props) => {
       const latLng = [lat, lng]
       dispatch(positionActions.setPosition(latLng))
     }, [mapState])
+
     function onCircleInteraction3(childKey, childProps, mouse){
       
         setMapState({...mapState,draggable: true})

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from '@material-ui/core/Paper';
+import {Paper, Button} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from "@material-ui/icons/Search";
 import Tabs from "@material-ui/core/Tabs";
@@ -23,6 +23,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import spotActions from '../redux/spotActions';
 import positionActions from '../redux/positionActions';
+import LoginPage from '../Pages/Login';
+import Signup from '../Pages/Signup';
 const useStyles = makeStyles(theme => ({
     paper: {
       padding: theme.spacing(0),
@@ -92,32 +94,31 @@ const Home = props => {
 
     useEffect(()=>{
       dispatch(spotActions.loadAllSpots())
-      
     }, [])
 
     const classes = useStyles();
-    const [selectedTab, setSelectedTab] = React.useState(undefined ? 0 :indexToTabName[page]);
+    const [selectedTab, setSelectedTab] = React.useState(undefined ? 0 : indexToTabName[page]);
     const handleChange = (event, newValue) => {
       history.push(`/${tabNameToIndex[newValue]}`);
       setSelectedTab(newValue);
     };
 
     return (
-      <>
-          {/* <CssBaseline/> */}
-          <TopBar history={history}/>
+          <>
+            <TopBar history={history}/>
           <>
           <Paper square className={classes.mid}>
             {/* {longitude}, {latitude} */}
             {selectedTab === 0 && <Feed />}
             {selectedTab === 1 && <Spots history={history} spots={spots}/>}
-            {selectedTab === 2 && <Post history={history}/>}
+            {selectedTab === 2 && <Post history={history} spots={spots}/>} 
             {selectedTab === 3 && <Profile/>}
             {selectedTab === 4 && <Messages/>}
             {selectedTab === undefined && setSelectedTab(0)}
             
           </Paper>
-          </>     
+          </>
+          {/* {{selectedTab === 2 ? <></> : (      */}
           <AppBar position="fixed" className={classes.appBar}>
           <Toolbar className={classes.appBar} >
               <Tabs
@@ -138,7 +139,7 @@ const Home = props => {
               </Tabs>
           </Toolbar>
           </AppBar>
-                
+          {/* )}   */}
       </>
       )
 };

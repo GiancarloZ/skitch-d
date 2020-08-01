@@ -45,16 +45,14 @@ const TopBar = props => {
                 <Grid container alignItems="center" justify="space-between">
                    
                     <Grid item >
-                        <Typography variant="h6" color="secondary" >
-                            {}
+                        <Button variant="text" color="secondary" onClick={() => history.push(`/`)} >
                             Skitch'D
-                        </Typography>
+                        </Button>
                     </Grid> 
                     <Grid item >
                        <Signup history={history}></Signup>
                     </Grid> 
                     <Grid item >
-                        {/* {login} */}
                         <LoginPage history={history}></LoginPage>
                     </Grid> 
 

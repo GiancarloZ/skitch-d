@@ -48,7 +48,7 @@ const LoginPage = props => {
     console.log(props)
 
     dispatch(userActions.loginUserToDB(loginForm));
-    props.history.push('/');
+    setOpen(false)
   };
   const handleClickOpen = () => {
     setOpen(true)
@@ -78,7 +78,7 @@ const LoginPage = props => {
             <form onSubmit={handleSubmit}>
             <h1>Login Page</h1>
             <Input
-                autoFocus="true"
+                autoFocus={true}
                 type="text"
                 name="username"
                 value={username}

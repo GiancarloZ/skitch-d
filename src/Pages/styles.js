@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -31,7 +31,8 @@ export const Root = styled.main`
     height: 90vh;
   }
   .react-html5-camera-photo-fullscreen > video {
-    object-fit: fill;
+    width: 100vw;
+    height: 90vh;
   }
   .react-html5-camera-photo-fullscreen > .display-error {
     width: 100vw;
@@ -61,6 +62,22 @@ export const Footer = styled.footer`
 `;
 
 export const FormStyle = styled.form`
-  padding-bottom: 50px;
-  
+  height: 100%;
+  padding-bottom: 36px;
 `;
+
+export const Video = styled.video`
+
+  width: 100%;
+
+  ${props =>
+    props.isFlipped &&
+    css`
+      transform: translate(-50%, -50%) scaleX(-1);
+    `};
+  ${props =>
+    props.onClick &&
+    css`
+      cursor: pointer;
+    `};
+`
