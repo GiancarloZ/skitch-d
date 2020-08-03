@@ -62,7 +62,7 @@ export const PostTrick = props => {
                 isOnInitially
                 countdownTime={0}
                 timeLimit={10000}
-                // isFlipped
+                isFlipped={false}
                 // replayVideoAutoplayAndLoopOff 
                 onRecordingComplete={(videoBlob, video, thumbnail) => {
                     // Do something with the video...
