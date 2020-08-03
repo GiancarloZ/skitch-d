@@ -62,7 +62,6 @@ export const PostTrick = props => {
                 isOnInitially
                 countdownTime={0}
                 timeLimit={10000}
-                constraints={{ audio: true, video: { facingMode: { ideal: "environment" }}}}
                 // isFlipped
                 // replayVideoAutoplayAndLoopOff 
                 onRecordingComplete={(videoBlob, video, thumbnail) => {
@@ -74,7 +73,8 @@ export const PostTrick = props => {
                     console.log('video', video)
                     console.log('thumbnail', thumbnail)
                     console.log(videoUrl)
-                  }}
+                }}
+                constraints={{ audio: true, video: { facingMode: { ideal: "environment" }}}}
                 />
                 
             ) : (
