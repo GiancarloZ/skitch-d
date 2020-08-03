@@ -74,7 +74,7 @@ export const PostTrick = props => {
                     console.log('thumbnail', thumbnail)
                     console.log(videoUrl)
                 }}
-                constraints={{ audio: true, video: { facingMode: { exact: "environment" }}}}
+                constraints={{ audio: true, video: { facingMode: "environment" }}}
                 />
                 
             ) : (
