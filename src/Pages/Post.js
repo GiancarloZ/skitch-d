@@ -22,11 +22,10 @@ const Post = props => {
 
         // const {latitude, longitude} = props;
         // console.log(longitude, latitude)
-        const { history, spots } = props;
+        const { history, spots, userId } = props;
         const dispatch = useDispatch();
         // spots = useSelector(state => state.spots);
         const [lat, lng] = useSelector(state => state.currentPosition)
-        const userId = useSelector(state => state.currentUser);
         const [isCameraOpen, setIsCameraOpen] = useState(true);
         const [cardImage, setCardImage] = useState();
         console.log(lat, lng)

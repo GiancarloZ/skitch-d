@@ -21,6 +21,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import trickActions from '../redux/trickActions';
 import spotActions from '../redux/spotActions';
 import positionActions from '../redux/positionActions';
 import LoginPage from '../Pages/Login';
@@ -71,11 +72,15 @@ const Home = props => {
     console.log(history)
     console.log(page)
     const dispatch = useDispatch();
-    const spots =  useSelector(state => state.spots);
     const {latitude, longitude, error} = usePosition();
     console.log(longitude, latitude)
     const latLng = [latitude, longitude];
     dispatch(positionActions.setPosition(latLng))
+    const spots =  useSelector(state => state.spots);
+    // const [lat, lng] = useSelector(state => state.currentPosition)
+    const userId = useSelector(state => state.currentUser);
+    const tricks = useSelector(state => state.tricks);
+    console.log(tricks)
     const tabNameToIndex = {
       0: "feed",
       1: "spots",
@@ -94,6 +99,7 @@ const Home = props => {
 
     useEffect(()=>{
       dispatch(spotActions.loadAllSpots())
+      dispatch(trickActions.loadAllTricks())
     }, [])
 
     const classes = useStyles();
@@ -105,20 +111,17 @@ const Home = props => {
 
     return (
           <>
-            <TopBar history={history}/>
+          <TopBar history={history}/>
           <>
           <Paper square className={classes.mid}>
-            {/* {longitude}, {latitude} */}
-            {selectedTab === 0 && <Feed />}
-            {selectedTab === 1 && <Spots history={history} spots={spots}/>}
-            {selectedTab === 2 && <Post history={history} spots={spots}/>} 
+            {selectedTab === 0 && <Feed history={history} spots={spots} userId={userId} tricks={tricks}/>}
+            {selectedTab === 1 && <Spots history={history} spots={spots} userId={userId} tricks={tricks}/>}
+            {selectedTab === 2 && <Post history={history} spots={spots} userId={userId}/>} 
             {selectedTab === 3 && <Profile/>}
             {selectedTab === 4 && <Messages/>}
             {selectedTab === undefined && setSelectedTab(0)}
-            
           </Paper>
           </>
-          {/* {{selectedTab === 2 ? <></> : (      */}
           <AppBar position="fixed" className={classes.appBar}>
           <Toolbar className={classes.appBar} >
               <Tabs
@@ -139,7 +142,6 @@ const Home = props => {
               </Tabs>
           </Toolbar>
           </AppBar>
-          {/* )}   */}
       </>
       )
 };

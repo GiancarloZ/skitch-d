@@ -82,7 +82,7 @@ const Spots = props => {
     const dispatch = useDispatch();
     const classes = useStyles()
     const [open, setOpen] = React.useState(false);
-    const { history, spots} = props;
+    const { history, spots, tricks} = props;
     // const spots =  useSelector(state => state.spots);
     const [filter, setFilter] = React.useState("");
     console.log(props)

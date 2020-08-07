@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import spotActions from '../redux/spotActions';
+import trickActions from '../redux/trickActions';
 // import { Camera } from "../Camera/index";
 import usePosition from '../Components/usePosition';
 import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle, Video } from "./styles";
@@ -18,29 +18,26 @@ export const PostTrick = props => {
     const {params} = match;
     const {spotId} = params;
     console.log(history)
-    console.log(match)
-    console.log(params)
     console.log(spotId)
+    const dispatch = useDispatch();
     const userId = useSelector(state => state.currentUser);
     const [trick, setTrick] = useState({
         name: '',
-        type: '',
+        ride: '',
         video:'',
-        thumbnail: '',
         user_id: userId.id,
         spot_id: spotId
     })
     console.log(trick)
-    const {name, type, video, user_id, spot_id, thumbnail} = trick;
+    const {name, ride, video, user_id, spot_id, thumbnail} = trick;
     const sports = ["Skateboard", "Inline Skating", "BMX", "Scooter", "Wheelchair"]
-    const [videoUrl, setVideoUrl] = useState();
     const handleChange = e => 
     setTrick({ ...trick, [e.target.name]: e.target.value });
 
     const handleSubmit = e => {
         e.preventDefault();
-        // dispatch(spotActions.newSpot(spot));
-        // history.push('/');
+        dispatch(trickActions.newTrick(trick));
+        history.push('/');
         console.log("heres")
       }
     return (
@@ -62,19 +59,34 @@ export const PostTrick = props => {
                 isOnInitially
                 countdownTime={0}
                 timeLimit={10000}
-                isFlipped={false}
+                isFlipped
                 // replayVideoAutoplayAndLoopOff 
-                onRecordingComplete={(videoBlob, video, thumbnail) => {
+                onRecordingComplete={(videoBlob, thumbnailBlob) => {
                     // Do something with the video...
-                    const videoUrl = window.URL.createObjectURL(videoBlob)
-                    setVideoUrl(videoUrl)
-                    setTrick({...trick, video: videoBlob, thumbnail: thumbnail})
-                    console.log('videoBlob', videoBlob)
-                    console.log('video', video)
-                    console.log('thumbnail', thumbnail)
-                    console.log(videoUrl)
+                    var formdata = new FormData();
+
+                    formdata.append("file", videoBlob);
+                    formdata.append("cloud_name", "dnoyhupey");
+                    formdata.append("upload_preset", "cz0zvuq0");
+                    fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
+                        method: "post",
+                        mode: "cors",
+                        body: formdata
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        console.log(data)
+                        const videoUrl = data.url
+                        setTrick({...trick, video: videoUrl})
+                    });
+                    // const videoUrl = window.URL.createObjectURL(videoBlob)
+                    // // const thumbnailUrl = window.URL.createObjectURL(thumbnail)
+                    // setVideoUrl(videoUrl)
+                    // setTrick({...trick, video: videoBlob})
+                    // console.log('videoBlob', videoBlob)
+                    // console.log(videoUrl)
                 }}
-                constraints={{ audio: true, video: { facingMode: "environment" }}}
+                constraints={{ audio: true, video: { facingMode: { exact: "environment" } } }}
                 />
                 
             ) : (
@@ -90,11 +102,11 @@ export const PostTrick = props => {
                 <Select
                 fullWidth
                 type="text"
-                name="type"
-                value={type}
+                name="ride"
+                value={ride}
                 onChange={handleChange}
-                placeholder="Style"
-                defaultValue="Rail"
+                placeholder="Ride"
+                defaultValue={sports[0]}
                 >
                 {sports.map(e =>        
                     <option value={e} key={e}>{e}</option>
@@ -103,7 +115,7 @@ export const PostTrick = props => {
                
                 <Video
                 //  ref={el => (this.replayVideo = el)}
-                 src={videoUrl}
+                 src={video}
                  loop
                  playsInline
                  autoPlay={true}

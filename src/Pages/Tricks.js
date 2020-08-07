@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import PostTrick from './PostTrick'
+import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle, Video } from "./styles";
+
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -49,22 +51,27 @@ const useStyles = makeStyles(theme => ({
 
 const Tricks = props => {
     const classes = useStyles()
-    const {history, spot, spots} = props
+    const {history, spot, spots, tricks} = props
+    console.log(props)
     console.log(history)
     console.log(spot)
-    const trick_id = spot.trick_id
+    console.log(tricks)
     const spotId = spot.id
-    const tricks = trick_id
+    // const tricks = trick_id
     const [filter, setFilter] = React.useState("");
+    console.log(filter)
 
-    const getTrickCard = (spotId, trickId, loading) => {
-        const { id, name, type, user_id, spot_id} = spots[id][trickId]
+    const getTrickCard = trickId => {
+        const {id, name, ride, video, user_id, spot_id} = tricks[trickId]
+        // const videoUrl = JSON.parse(video).secure_url
+        console.log(trickId)
+        console.log(video)
         const handleOnClick = () => {
-            history.push(`/spots/${spotId}/${id}`)
+            // history.push(`/spots/${spotId}/${id}`)
         }
       
         return(
-            <React.Fragment key={trickId}>
+            <React.Fragment key={id}>
                 {/* <Grid className={classes.grid}>  </Grid> */}
    
                 <Card className={classes.root} onClick={handleOnClick}>
@@ -72,13 +79,13 @@ const Tricks = props => {
                     <CardActionArea>
                         <CardContent style={{padding:"0", margin: "0" }}>
                             <Grid container className={classes.typography}>
-                                {/* {loading ? ( */}
+                           
                                     <Grid item className={classes.map}>
                                         <Typography gutterBottom variant="h4" component="h2" >
                                             {name}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p" >
-                                            <b>Type:</b> {type}
+                                            <b>Ride:</b> {ride}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">
                                             <b>created by:</b> <b>{user_id}</b>
@@ -86,12 +93,20 @@ const Tricks = props => {
                                     </Grid>
                                
                                     <Grid item className={classes.map}>
-                                        <CardMedia
-                                            component="img"
+                                    <Video
+                                        //  ref={el => (this.replayVideo = el)}
+                                        src={video}
+                                        loop
+                                        playsInline
+                                        autoPlay={true}
+                                    />
+        
+                                        {/* <CardMedia
+                                            component="video"
                                             className={classes.media}
-                                            image="/google-map-defualt.jfif"
-                                            title="Google Map Default"
-                                        />
+                                            src={video}
+                                            title={name}
+                                        /> */}
                                     </Grid>
                              
                             </Grid>
@@ -135,11 +150,11 @@ const Tricks = props => {
         </Grid>
         </Paper>
         {!tricks && <Typography variant="h6" >No tricks have been posted on this spot! Be the first!</Typography>}
-        {tricks && 
-            Object.keys(tricks).map(
+        {tricks &&
+            Object.keys(tricks).reverse().map(
                 (trickId, loading) =>  
-                spots[spotId][trickId].name.includes(filter) &&
-                getTrickCard(spotId, trickId, loading)
+                tricks[trickId].name.includes(filter) &&
+                getTrickCard(trickId, loading)
             ) 
         }
     

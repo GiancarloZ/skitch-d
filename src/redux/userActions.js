@@ -28,7 +28,7 @@ const newUserToDB = userObj => dispatch => {
     },
     body: JSON.stringify(userObj)
   };
-  fetch(HEROKU_URL + '/users', config)
+  fetch(BASE_URL + '/users', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -54,7 +54,7 @@ const loginUserToDB = userCredentials => dispatch => {
     },
     body: JSON.stringify(userCredentials)
   };
-  fetch(HEROKU_URL + '/login', config)
+  fetch(BASE_URL + '/login', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -69,7 +69,7 @@ const persistUser = () => dispatch => {
       Authorization: `bearer ` + localStorage.token
     }
   };
-  fetch(HEROKU_URL + '/persist', config)
+  fetch(BASE_URL + '/persist', config)
     .then(r => r.json())
     .then(userInstance => {
       dispatch(setUserAction(userInstance));

@@ -5,7 +5,8 @@ import Spot from './Pages/Spot'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import PostTrick from './Pages/PostTrick'
- const Routes = () => {
+
+const Routes = () => {
     return (
         <>
         <Redirect exact from="/" to="/feed"  />

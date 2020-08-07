@@ -27,7 +27,7 @@ const loadAllSpots = () => dispatch => {
       'Content-Type': 'application/json'
     },
   };
-  fetch(HEROKU_URL + '/spots', config)
+  fetch(BASE_URL + '/spots', config)
     .then(r => r.json())
     .then(data => {
         console.log(data)
@@ -44,7 +44,7 @@ const newSpot = spotObj => dispatch => {
     },
     body: JSON.stringify(spotObj)
   };
-  fetch(HEROKU_URL + '/spots', config)
+  fetch(BASE_URL + '/spots', config)
     .then(r => r.json())
     .then(data => {
       console.log(data)
