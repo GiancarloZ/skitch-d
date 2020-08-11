@@ -69,7 +69,7 @@ export const FormStyle = styled.form`
 export const Video = styled.video`
 
   width: 100%;
-
+  height: 100%;
   ${props =>
     props.isFlipped &&
     css`

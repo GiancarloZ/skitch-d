@@ -100,7 +100,7 @@ const Home = props => {
     useEffect(()=>{
       dispatch(spotActions.loadAllSpots())
       dispatch(trickActions.loadAllTricks())
-    }, [])
+    }, [dispatch])
 
     const classes = useStyles();
     const [selectedTab, setSelectedTab] = React.useState(undefined ? 0 : indexToTabName[page]);

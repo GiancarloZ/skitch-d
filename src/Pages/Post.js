@@ -43,9 +43,26 @@ const Post = props => {
         
         
         function handleTakePhotoAnimationDone (dataUri) {
-          setCardImage(dataUri);
-          setSpot({...spot, image: dataUri})
-          setIsCameraOpen(false)
+         
+          var formdata = new FormData();
+
+                  formdata.append("file", dataUri);
+                  formdata.append("cloud_name", "dnoyhupey");
+                  formdata.append("upload_preset", "cz0zvuq0");
+                  fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
+                      method: "post",
+                      mode: "cors",
+                      body: formdata
+                  })
+                  .then(r => r.json())
+                  .then(data => {
+                      console.log(data)
+                      const imageUrl = data.url
+                      setSpot({...spot, image: imageUrl})
+                      setCardImage(imageUrl);
+                      setIsCameraOpen(false)
+                  });
+        
         }
         const isFullscreen = false;
         // Controlled form functions

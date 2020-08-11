@@ -58,13 +58,11 @@ const Tricks = props => {
     console.log(tricks)
     const spotId = spot.id
     // const tricks = trick_id
-    const [filter, setFilter] = React.useState("");
-    console.log(filter)
 
-    const getTrickCard = trickId => {
-        const {id, name, ride, video, user_id, spot_id} = tricks[trickId]
+    const getTrickCard = trick => {
+        const {id, name, ride, video, user_id, spot_id} = trick
         // const videoUrl = JSON.parse(video).secure_url
-        console.log(trickId)
+        console.log(trick)
         console.log(video)
         const handleOnClick = () => {
             // history.push(`/spots/${spotId}/${id}`)
@@ -94,7 +92,7 @@ const Tricks = props => {
                                
                                     <Grid item className={classes.map}>
                                     <Video
-                                        //  ref={el => (this.replayVideo = el)}
+                                        // ref={el => (this.replayVideo = el)}
                                         src={video}
                                         loop
                                         playsInline
@@ -102,7 +100,7 @@ const Tricks = props => {
                                     />
         
                                         {/* <CardMedia
-                                            component="video"
+                                            component={"video"}
                                             className={classes.media}
                                             src={video}
                                             title={name}
@@ -149,15 +147,12 @@ const Tricks = props => {
             </Grid>
         </Grid>
         </Paper>
-        {!tricks && <Typography variant="h6" >No tricks have been posted on this spot! Be the first!</Typography>}
-        {tricks &&
-            Object.keys(tricks).reverse().map(
-                (trickId, loading) =>  
-                tricks[trickId].name.includes(filter) &&
-                getTrickCard(trickId, loading)
-            ) 
-        }
-    
+        {/* {tricks === undefined && <CircularProgress/> } */}
+        {tricks.length > 0 ? (
+            tricks.reverse().map( (trick) => 
+                getTrickCard(trick)
+            )
+        ) : (<Typography variant="h6" >No tricks have been posted on this spot! Be the first!</Typography>)}
         </>
     )
 }

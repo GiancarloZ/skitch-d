@@ -46,16 +46,16 @@ const Spot = props => {
     const allTricks = useSelector(state => state.tricks);
     console.log(spotId)
     const [spot, setSpot] = React.useState(undefined)
-    const [tricks, setTrick] = React.useState(undefined)
+    const [tricks, setTricks] = React.useState(undefined)
 
     useEffect(() => {
         setSpot(spots[spotId - 1])
         const spotTricks = allTricks.filter(function(el) {
             console.log(el)
-            return el.spot_id === spotId
+            return spotId.indexOf(el.spot_id) > -1;
         })
         console.log(spotTricks)
-        setTrick(spotTricks)
+        setTricks(spotTricks)
     }, [])
     console.log(allTricks)
     console.log(tricks)
@@ -137,7 +137,7 @@ const Spot = props => {
                     </CardActions>
                     </div>
                 </Card>
-                <Tricks history={history} spot={spot} spots={spots} tricks={allTricks}/>
+                <Tricks history={history} spot={spot} spots={spots} tricks={tricks}/>
                 </Paper>
             </React.Fragment>
         
