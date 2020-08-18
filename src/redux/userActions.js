@@ -22,7 +22,9 @@ const loadUserAction = userObj => ({
   type: 'LOAD_USERS',
   user: userObj
 });
+
 // Fetch
+
 const loadAllUsers = () => dispatch => {
   const config = {
     method: 'GET',
@@ -30,7 +32,7 @@ const loadAllUsers = () => dispatch => {
       'Content-Type': 'application/json'
     },
   };
-  fetch(BASE_URL + '/users', config)
+  fetch(HEROKU_URL + '/users', config)
     .then(r => r.json())
     .then(data => {
         console.log(data)
@@ -47,7 +49,7 @@ const newUserToDB = userObj => dispatch => {
     },
     body: JSON.stringify(userObj)
   };
-  fetch(BASE_URL + '/users', config)
+  fetch(HEROKU_URL + '/users', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -73,7 +75,7 @@ const loginUserToDB = userCredentials => dispatch => {
     },
     body: JSON.stringify(userCredentials)
   };
-  fetch(BASE_URL + '/login', config)
+  fetch(HEROKU_URL + '/login', config)
     .then(r => r.json())
     .then(data => {
       dispatch(setUserAction(data.user));
@@ -88,7 +90,7 @@ const persistUser = () => dispatch => {
       Authorization: `bearer ` + localStorage.token
     }
   };
-  fetch(BASE_URL + '/persist', config)
+  fetch(HEROKU_URL + '/persist', config)
     .then(r => r.json())
     .then(userInstance => {
       dispatch(setUserAction(userInstance));

@@ -27,7 +27,7 @@ const loadAllTricks = () => dispatch => {
       'Content-Type': 'application/json'
     },
   };
-  fetch(BASE_URL + '/tricks', config)
+  fetch(HEROKU_URL + '/tricks', config)
     .then(r => r.json())
     .then(data => {
         console.log(data)
@@ -45,7 +45,7 @@ const newTrick = trickObj => dispatch => {
     },
     body: JSON.stringify(trickObj)
   };
-  fetch(BASE_URL + '/tricks', config)
+  fetch(HEROKU_URL + '/tricks', config)
     .then(r => r.json())
     .then(data => {
       console.log(data)
