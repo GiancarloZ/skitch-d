@@ -51,7 +51,7 @@ const TrickCard = props => {
     const {id, name, ride, video, user_id, spot_id} = p
     // const videoUrl = JSON.parse(video).secure_url
     const handleOnClick = () => {
-        // history.push(`/spots/${spotId}/${id}`)
+        history.push(`/`)
     }
   
     return(
@@ -73,6 +73,9 @@ const TrickCard = props => {
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         <b>created by:</b> <b>{user_id}</b>
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        <b>spot:</b> <b>{spot_id}</b>
                                     </Typography>
                                 </Grid>
                            

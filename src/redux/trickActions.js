@@ -38,6 +38,7 @@ const loadAllTricks = () => dispatch => {
 
 const newTrick = trickObj => dispatch => {
   console.log(trickObj)
+  console.log('didididid')
   const config = {
     method: 'POST',
     headers: {

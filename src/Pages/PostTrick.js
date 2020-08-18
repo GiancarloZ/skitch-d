@@ -26,7 +26,7 @@ export const PostTrick = props => {
         ride: '',
         video:'',
         user_id: userId.id,
-        spot_id: spotId
+        spot_id: parseInt(spotId)
     })
     console.log(trick)
     const {name, ride, video, user_id, spot_id, thumbnail} = trick;
@@ -37,7 +37,7 @@ export const PostTrick = props => {
     const handleSubmit = e => {
         e.preventDefault();
         dispatch(trickActions.newTrick(trick));
-        history.push('/');
+        // history.push('/');
         console.log("heres")
       }
     return (
