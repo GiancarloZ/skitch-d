@@ -84,7 +84,7 @@ const Post = props => {
         const handleSubmit = e => {
           e.preventDefault();
           dispatch(spotActions.newSpot(spot));
-          history.push(`/`);
+          history.push('/');
           console.log("heres")
         }
         function handleTakePhoto (dataUri) {
@@ -154,10 +154,10 @@ const Post = props => {
           value={style}
           onChange={handleChange}
           placeholder="Style"
-          defaultValue="Rail"
+          displayEmpty={true}
         >
          {uniqueStyle.map(e =>        
-            <option value={e} key={e.id}>{e}</option>
+            <option value={e} key={e}>{e}</option>
          )}
         </Select>
         <Map>

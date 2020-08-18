@@ -49,6 +49,7 @@ const LoginPage = props => {
 
     dispatch(userActions.loginUserToDB(loginForm));
     setOpen(false)
+    history.push('/');
   };
   const handleClickOpen = () => {
     setOpen(true)

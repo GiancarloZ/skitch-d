@@ -1,15 +1,19 @@
 import React from 'react'
-import {CircularProgress, Button, AppBar, Grid, Paper, Card, CardActions, Typography, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
+import {CircularProgress, Button, AppBar, Grid, Paper, Card, CardActions, Typography, CardContent, CardMedia, CardActionArea, CardHeader } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import StarBorder from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle, Video } from "../Pages/styles";
-
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import { red } from '@material-ui/core/colors';
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex',
+        // display: "flex",
         padding: 0,
         margin: 0,
+        maxWidth: "100%",
         // paddingLeft: 0,
         // paddingRight: 0
       },
@@ -29,26 +33,29 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
     },
     details: {
-        display: 'flex',
-        flexDirection: 'column',
+        // display: 'flex',
+        // flexDirection: 'row',
     },
     typography: {
         width:"100%",
-        flexDirection: 'row',
+        // flexDirection: 'row',
     },
     map: {
         width:"50%",
         height: "100%"
     },
     media: {
-        width: 375,
-        height: "350px"
-    }
+        width: "100%",
+        height: "100%"
+    },
+    avatar: {
+        backgroundColor: red[500],
+      },
   }));
 const TrickCard = props => {
     const {history, p} = props;
     const classes = useStyles()
-    const {id, name, ride, video, user_id, spot_id} = p
+    const {id, name, ride, video, user_id, spot_id, created_at} = p
     // const videoUrl = JSON.parse(video).secure_url
     const handleOnClick = () => {
         history.push(`/`)
@@ -59,27 +66,39 @@ const TrickCard = props => {
             {/* <Grid className={classes.grid}>  </Grid> */}
 
             <Card className={classes.root} onClick={handleOnClick}>
+            <CardHeader
+                avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                        N 
+                    </Avatar>
+                }
+                title={ 
+                    <Typography gutterBottom variant="h4" component="h2" >
+                        NEW TRICK
+                    </Typography>
+                }
+            />
                 <div className={classes.details}>
-                <CardActionArea>
+                {/* <CardActionArea> */}
                     <CardContent style={{padding:"0", margin: "0" }}>
-                        <Grid container className={classes.typography}>
+                        {/* <Grid container className={classes.typography}> */}
                        
-                                <Grid item className={classes.map}>
+                                {/* <Grid item className={classes.map}> */}
                                     <Typography gutterBottom variant="h4" component="h2" >
                                         {name}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p" >
-                                        <b>Ride:</b> {ride}
+                                        <b>RIDE:</b> {ride}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        <b>created by:</b> <b>{user_id}</b>
+                                        <b>CREATED BY:</b> <b>{user_id}</b>
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        <b>spot:</b> <b>{spot_id}</b>
+                                        <b>SPOT:</b> <b>{spot_id}</b>
                                     </Typography>
-                                </Grid>
+                                {/* </Grid> */}
                            
-                                <Grid item className={classes.media}>
+                                <Grid container item className={classes.media}>
                                 <Video
                                     // ref={el => (this.replayVideo = el)}
                                     src={video}
@@ -97,10 +116,10 @@ const TrickCard = props => {
                                     /> */}
                                 </Grid>
                          
-                        </Grid>
+                        {/* </Grid> */}
                         
                     </CardContent>
-                </CardActionArea>
+                {/* </CardActionArea> */}
                 <CardActions>
                     <Button size="small" color="primary">
                         <StarBorder/>

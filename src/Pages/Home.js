@@ -69,10 +69,12 @@ const Home = props => {
     console.log(longitude, latitude)
     const latLng = [latitude, longitude];
     dispatch(positionActions.setPosition(latLng))
+    
     const spots =  useSelector(state => state.spots);
     const userId = useSelector(state => state.currentUser);
     const tricks = useSelector(state => state.tricks);
     const users = useSelector(state => state.users);
+
     console.log(users)
     console.log(tricks)
     const tabNameToIndex = {

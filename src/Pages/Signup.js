@@ -32,6 +32,7 @@ const Signup = props => {
     const { history } = props;
     dispatch(userActions.newUserToDB(signupForm));
     setOpen(false);
+    history.push('/')
   };
 
   const handleClickOpen = () => {
