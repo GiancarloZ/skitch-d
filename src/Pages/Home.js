@@ -1,31 +1,24 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from "@material-ui/core/styles";
-import {Paper, Button} from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import SearchIcon from "@material-ui/icons/Search";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import {Paper, Button, Grid, Tabs, Tab, AppBar, Toolbar} from '@material-ui/core';
 import MessageIcon from "@material-ui/icons/Message";
 import HomeIcon from "@material-ui/icons/Home";
-import CameraIcon from "@material-ui/icons/Camera";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
-import TopBar from '../Components/TopBar';
+import CameraIcon from "@material-ui/icons/Camera";
+import SearchIcon from "@material-ui/icons/Search";
 import Feed from "./Feed"
 import Messages from "./Messages"
 import Profile from "./Profile"
 import Spots from "./Spots"
 import Post from "./Post"
 import usePosition from '../Components/usePosition';
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
+import TopBar from '../Components/TopBar';
 import trickActions from '../redux/trickActions';
 import spotActions from '../redux/spotActions';
+import userActions from '../redux/userActions';
 import positionActions from '../redux/positionActions';
-import LoginPage from '../Pages/Login';
-import Signup from '../Pages/Signup';
+
 const useStyles = makeStyles(theme => ({
     paper: {
       padding: theme.spacing(0),
@@ -77,9 +70,10 @@ const Home = props => {
     const latLng = [latitude, longitude];
     dispatch(positionActions.setPosition(latLng))
     const spots =  useSelector(state => state.spots);
-    // const [lat, lng] = useSelector(state => state.currentPosition)
     const userId = useSelector(state => state.currentUser);
     const tricks = useSelector(state => state.tricks);
+    const users = useSelector(state => state.users);
+    console.log(users)
     console.log(tricks)
     const tabNameToIndex = {
       0: "feed",
@@ -100,6 +94,7 @@ const Home = props => {
     useEffect(()=>{
       dispatch(spotActions.loadAllSpots())
       dispatch(trickActions.loadAllTricks())
+      dispatch(userActions.loadAllUsers())
     }, [dispatch])
 
     const classes = useStyles();
@@ -114,7 +109,7 @@ const Home = props => {
           <TopBar history={history}/>
           <>
           <Paper square className={classes.mid}>
-            {selectedTab === 0 && <Feed history={history} spots={spots} userId={userId} tricks={tricks}/>}
+            {selectedTab === 0 && <Feed history={history} spots={spots} userId={userId} tricks={tricks} users={users} />}
             {selectedTab === 1 && <Spots history={history} spots={spots} userId={userId} tricks={tricks}/>}
             {selectedTab === 2 && <Post history={history} spots={spots} userId={userId}/>} 
             {selectedTab === 3 && <Profile/>}

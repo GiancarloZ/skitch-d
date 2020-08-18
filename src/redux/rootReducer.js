@@ -1,4 +1,4 @@
-const initialState = { currentUser:[], spots:[], elements:[], currentPosition: [], tricks:[] };
+const initialState = { currentUser:[], spots:[], elements:[], currentPosition: [], tricks:[], users:[] };
 export default (state = initialState, action )=>{
     switch (action.type) {
       case 'SET_USER':
@@ -10,6 +10,11 @@ export default (state = initialState, action )=>{
         return {
           ...state,
           currentUser: {}
+        };
+      case 'LOAD_USERS':
+        return {
+          ...state,
+          users: action.user
         };
       case 'LOAD_SPOTS':
         return {

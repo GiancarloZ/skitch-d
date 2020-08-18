@@ -46,24 +46,25 @@ const Post = props => {
          
           var formdata = new FormData();
 
-                  formdata.append("file", dataUri);
-                  formdata.append("cloud_name", "dnoyhupey");
-                  formdata.append("upload_preset", "cz0zvuq0");
-                  fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
-                      method: "post",
-                      mode: "cors",
-                      body: formdata
-                  })
-                  .then(r => r.json())
-                  .then(data => {
-                      console.log(data)
-                      const imageUrl = data.url
-                      setSpot({...spot, image: imageUrl})
-                      setCardImage(imageUrl);
-                      setIsCameraOpen(false)
-                  });
+            formdata.append("file", dataUri);
+            formdata.append("cloud_name", "dnoyhupey");
+            formdata.append("upload_preset", "cz0zvuq0");
+            fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
+                method: "post",
+                mode: "cors",
+                body: formdata
+            })
+            .then(r => r.json())
+            .then(data => {
+                console.log(data)
+                const imageUrl = data.url
+                setSpot({...spot, image: imageUrl})
+                setCardImage(imageUrl);
+                setIsCameraOpen(false)
+            });
         
         }
+
         const isFullscreen = false;
         // Controlled form functions
   
@@ -72,16 +73,18 @@ const Post = props => {
 
         const handleMapChange = e => 
           setSpot({ ...spot, lat: e.lat, lng: e.lng });
+
         useEffect(() => {
      
           const newSpot = {...spot, lat: lat, lng: lng};
           setSpot(newSpot)
         
         }, [])
+        
         const handleSubmit = e => {
           e.preventDefault();
           dispatch(spotActions.newSpot(spot));
-          history.push('/');
+          history.push(`/`);
           console.log("heres")
         }
         function handleTakePhoto (dataUri) {

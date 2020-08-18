@@ -44,7 +44,8 @@ const useStyles = makeStyles(theme => ({
         height: "100%"
     },
     media: {
-        height: "120px"
+        width: 375,
+        height: "350px"
     }
   }));
 
@@ -90,11 +91,12 @@ const Tricks = props => {
                                         </Typography>
                                     </Grid>
                                
-                                    <Grid item className={classes.map}>
+                                    <Grid item className={classes.media}>
                                     <Video
                                         // ref={el => (this.replayVideo = el)}
                                         src={video}
                                         loop
+                                        muted
                                         playsInline
                                         autoPlay={true}
                                     />

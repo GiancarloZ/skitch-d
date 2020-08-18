@@ -18,7 +18,26 @@ const clearUserAction = () => ({
   type: 'CLEAR_USER'
 });
 
+const loadUserAction = userObj => ({
+  type: 'LOAD_USERS',
+  user: userObj
+});
 // Fetch
+const loadAllUsers = () => dispatch => {
+  const config = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  };
+  fetch(BASE_URL + '/users', config)
+    .then(r => r.json())
+    .then(data => {
+        console.log(data)
+      dispatch(loadUserAction(data));
+     
+    });
+};
 
 const newUserToDB = userObj => dispatch => {
   const config = {
@@ -82,6 +101,7 @@ const logoutUser = () => dispatch => {
 };
 
 export default {
+  loadAllUsers,
   newUserToDB,
   deleteUserFromDB,
   loginUserToDB,
