@@ -128,8 +128,6 @@ const Feed = props => {
     }
   
     const getUserCard = p => {
-      console.log(p)
-      console.log("User")
       return <h1>New User: </h1>
     }
     return (
