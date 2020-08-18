@@ -37,7 +37,7 @@ export const PostTrick = props => {
     const handleSubmit = e => {
         e.preventDefault();
         dispatch(trickActions.newTrick(trick));
-        // history.push('/');
+        history.push('/');
         console.log("heres")
       }
     return (
