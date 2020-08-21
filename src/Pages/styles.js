@@ -25,18 +25,25 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const Root = styled.main`
-
-  .react-html5-camera-photo-fullscreen > video, .react-html5-camera-photo-fullscreen > img {
-    width: 100vw;
-    height: 90vh;
-  }
-  .react-html5-camera-photo-fullscreen > video {
-    width: 100vw;
-    height: 90vh;
-  }
-  .react-html5-camera-photo-fullscreen > .display-error {
-    width: 100vw;
-    height: 90vh;
+  position: sticky;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: silver;
+  Button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 0px;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
   }
 `;
 

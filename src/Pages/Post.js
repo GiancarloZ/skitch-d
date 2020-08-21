@@ -110,33 +110,52 @@ const Post = props => {
         }
         const {name, style, level, image} = spot;
         const uniqueStyle = [...new Set(spots.map(item => item.style))];
+        const hiddenFileInput = React.useRef(null)
+        const handleClick = event => {
+          hiddenFileInput.current.click();
+        };
+        const handleOnChange = event => {
+          const fileUploaded = event.target.files[0];
+          props.handleFile(fileUploaded);
+        };
     return (
 
     <>
      
-     {isCameraOpen && (
-       
-       <Root >
-        <Camera
-          onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
-          onTakePhotoAnimationDone = { (dataUri) => { handleTakePhotoAnimationDone(dataUri); } }
-          onCameraError = { (error) => { handleCameraError(error); } }
-          idealFacingMode = {FACING_MODES.ENVIRONMENT}
-          idealResolution = {{width: 640, height: 480}}
-          imageType = {IMAGE_TYPES.JPG}
-          imageCompression = {0.97}
-          isMaxResolution = {true}
-          isImageMirror = {false}
-          isSilentMode = {false}
-          isDisplayStartCameraError = {true}
-          isFullscreen = {true}
-          sizeFactor = {1}
-          onCameraStart = { (stream) => { handleCameraStart(stream); } }
-          onCameraStop = { () => { handleCameraStop(); } }
-        />
-      </Root>
-     )}
-    {cardImage &&
+     {!cardImage ? (
+        <Root>
+          <Button variant="contained" style={{margin: 0}}onClick={handleClick}> Take Photo </Button>
+          <input  
+            type="file" 
+            accept="image/*" 
+            capture="environment"
+            ref={hiddenFileInput}
+            onChange={handleOnChange}
+            style={{display: "none"}} 
+          />
+      
+        </Root>
+      //  <Root >
+      //   <Camera
+      //     onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
+      //     onTakePhotoAnimationDone = { (dataUri) => { handleTakePhotoAnimationDone(dataUri); } }
+      //     onCameraError = { (error) => { handleCameraError(error); } }
+      //     idealFacingMode = {FACING_MODES.ENVIRONMENT}
+      //     idealResolution = {{width: 640, height: 480}}
+      //     imageType = {IMAGE_TYPES.JPG}
+      //     imageCompression = {0.97}
+      //     isMaxResolution = {true}
+      //     isImageMirror = {false}
+      //     isSilentMode = {false}
+      //     isDisplayStartCameraError = {true}
+      //     isFullscreen = {true}
+      //     sizeFactor = {1}
+      //     onCameraStart = { (stream) => { handleCameraStart(stream); } }
+      //     onCameraStop = { () => { handleCameraStop(); } }
+      //   />
+      // </Root>
+     ) : (
+    // {cardImage &&
    
       <form onSubmit={handleSubmit}>
         
@@ -177,7 +196,8 @@ const Post = props => {
         <Input fullWidth type="submit" style={{paddingBottom: "50px"}}/>
       </form>
 
-    }
+    // }
+     )}
       {/* <Footer>
       {!isCameraOpen ? (
            <button onClick={() => setIsCameraOpen(true)}>Open Camera</button>) : (
