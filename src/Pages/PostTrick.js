@@ -28,6 +28,7 @@ export const PostTrick = props => {
         user_id: userId.id,
         spot_id: parseInt(spotId)
     })
+    const [loading, setLoading] = useState(false)
     console.log(trick)
     const {name, ride, video, user_id, spot_id, thumbnail} = trick;
     const sports = ["Skateboard", "Inline Skating", "BMX", "Scooter", "Wheelchair"]
@@ -47,23 +48,24 @@ export const PostTrick = props => {
       };
 
       const handleOnChange = event => {
+        setLoading(true)
         const fileUploaded = event.target.files[0];
         var formdata = new FormData();
-
-            formdata.append("file", fileUploaded);
-            formdata.append("cloud_name", "dnoyhupey");
-            formdata.append("upload_preset", "cz0zvuq0");
-            fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
-                method: "post",
-                mode: "cors",
-                body: formdata
-            })
-            .then(r => r.json())
-            .then(data => {
-                console.log(data)
-                const videoUrl = data.url
-                setTrick({...trick, video: videoUrl})
-            });
+        formdata.append("file", fileUploaded);
+        formdata.append("cloud_name", "dnoyhupey");
+        formdata.append("upload_preset", "cz0zvuq0");
+        fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
+            method: "post",
+            mode: "cors",
+            body: formdata
+        })
+        .then(r => r.json())
+        .then(data => {
+            console.log(data)
+            const videoUrl = data.url
+            setTrick({...trick, video: videoUrl})
+            setLoading(false)
+        });
 
       };
 
@@ -81,7 +83,8 @@ export const PostTrick = props => {
                     </Grid> 
                 </Grid>
             </AppBar>
-            {!video ? (
+            {!video && loading && <Root><h3 style={{paddingTop: 50}}>uploading video....</h3></Root>}
+            {!video && !loading &&
                 <>
                 <Root>
                 <Button variant="contained" style={{margin: 0}} onClick={handleClick}> Take Video </Button>
@@ -125,10 +128,10 @@ export const PostTrick = props => {
                 // }}
                 // constraints={{ audio: true, video: { facingMode: { exact: "environment" } } }}
                 // />
+            } 
                 
-            ) : (
-                
-            <form  style={{paddingTop: "50px"}}>
+            {video && !loading && 
+                <form  style={{paddingTop: "50px"}}>
                <Input
                 fullWidth={true}
                 type="text"
@@ -162,8 +165,8 @@ export const PostTrick = props => {
       
                 <Button fullWidth variant="outlined" size="large" onClick={handleSubmit}>Submit</Button>
                 </form>
-            )}
-            
+            }
+   
         </>
     )
 }

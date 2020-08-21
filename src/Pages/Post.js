@@ -26,7 +26,6 @@ const Post = props => {
         const dispatch = useDispatch();
         // spots = useSelector(state => state.spots);
         const [lat, lng] = useSelector(state => state.currentPosition)
-        const [isCameraOpen, setIsCameraOpen] = useState(true);
         const [cardImage, setCardImage] = useState();
         console.log(lat, lng)
 
@@ -40,32 +39,8 @@ const Post = props => {
         })
 
         console.log(spot)
-        
-        
-        function handleTakePhotoAnimationDone (dataUri) {
-         
-          var formdata = new FormData();
+        const [loading, setLoading] = useState(false)
 
-            formdata.append("file", dataUri);
-            formdata.append("cloud_name", "dnoyhupey");
-            formdata.append("upload_preset", "cz0zvuq0");
-            fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
-                method: "post",
-                mode: "cors",
-                body: formdata
-            })
-            .then(r => r.json())
-            .then(data => {
-                console.log(data)
-                const imageUrl = data.url
-                setSpot({...spot, image: imageUrl})
-                setCardImage(imageUrl);
-                setIsCameraOpen(false)
-            });
-        
-        }
-
-        const isFullscreen = false;
         // Controlled form functions
   
         const handleChange = e => 
@@ -87,151 +62,99 @@ const Post = props => {
           history.push('/');
           console.log("heres")
         }
-        function handleTakePhoto (dataUri) {
-          // Do stuff with the photo...
-          console.log('takePhoto');
-        }
-        function handleCameraError (error) {
-          console.log('handleCameraError', error);
-        }
-      
-        function handleCameraStart (stream) {
-          console.log('handleCameraStart');
-        }
-      
-        function handleCameraStop () {
-          console.log('handleCameraStop');
-        }
 
         const handleOnClick = () => {
           history.goBack()
-          setIsCameraOpen(false)
           console.log("clicked")
         }
         const {name, style, level, image} = spot;
         const uniqueStyle = [...new Set(spots.map(item => item.style))];
+
         const hiddenFileInput = React.useRef(null)
         const handleClick = event => {
           hiddenFileInput.current.click();
         };
+
         const handleOnChange = event => {
+          setLoading(true)
           const fileUploaded = event.target.files[0];
-          props.handleFile(fileUploaded);
+          var formdata = new FormData();
+          formdata.append("file", fileUploaded);
+          formdata.append("cloud_name", "dnoyhupey");
+          formdata.append("upload_preset", "cz0zvuq0");
+          fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
+              method: "post",
+              mode: "cors",
+              body: formdata
+          })
+          .then(r => r.json())
+          .then(data => {
+              console.log(data)
+              const imageUrl = data.url
+              setSpot({...spot, image: imageUrl})
+              setCardImage(imageUrl);
+              setLoading(false)
+          });
+  
         };
+
     return (
-
-    <>
-     
-     {!cardImage ? (
-        <Root>
-          <Button variant="contained" style={{margin: 0}}onClick={handleClick}> Take Photo </Button>
-          <input  
-            type="file" 
-            accept="image/*" 
-            capture="environment"
-            ref={hiddenFileInput}
-            onChange={handleOnChange}
-            style={{display: "none"}} 
-          />
-      
-        </Root>
-      //  <Root >
-      //   <Camera
-      //     onTakePhoto = { (dataUri) => { handleTakePhoto(dataUri); } }
-      //     onTakePhotoAnimationDone = { (dataUri) => { handleTakePhotoAnimationDone(dataUri); } }
-      //     onCameraError = { (error) => { handleCameraError(error); } }
-      //     idealFacingMode = {FACING_MODES.ENVIRONMENT}
-      //     idealResolution = {{width: 640, height: 480}}
-      //     imageType = {IMAGE_TYPES.JPG}
-      //     imageCompression = {0.97}
-      //     isMaxResolution = {true}
-      //     isImageMirror = {false}
-      //     isSilentMode = {false}
-      //     isDisplayStartCameraError = {true}
-      //     isFullscreen = {true}
-      //     sizeFactor = {1}
-      //     onCameraStart = { (stream) => { handleCameraStart(stream); } }
-      //     onCameraStop = { () => { handleCameraStop(); } }
-      //   />
-      // </Root>
-     ) : (
-    // {cardImage &&
-   
-      <form onSubmit={handleSubmit}>
+      <>
+        {!cardImage && loading && <Root><h3 style={{paddingTop: 50}}>uploading image....</h3></Root>}
+        {!cardImage && !loading &&
+          <Root>
+            <Button variant="contained" style={{margin: 0}}onClick={handleClick}> Take Photo </Button>
+            <input  
+              type="file" 
+              accept="image/*" 
+              capture="environment"
+              ref={hiddenFileInput}
+              onChange={handleOnChange}
+              style={{display: "none"}} 
+            />
         
-        <Input
-          fullWidth={true}
-          type="text"
-          name="name"
-          onChange={handleChange}
-          placeholder="Name (e.g. Bro Bowl Rail)"
-        />
-        <Select
-          fullWidth
-          type="text"
-          name="style"
-          value={style}
-          onChange={handleChange}
-          placeholder="Style"
-          displayEmpty={true}
-        >
-         {uniqueStyle.map(e =>        
-            <option value={e} key={e}>{e}</option>
-         )}
-        </Select>
-        <Map>
-        </Map>
-        {/* <input type="hidden" name="latitude" value=""/>
-          <input type="hidden" name="longitude" value=""/> */}
-         <input
-          fullWidth
-          type="image"
-          name="image"
-          value={"Image"}
-          style={{width: "100%"}}
-          src={cardImage}
-          onChange={handleChange}
-          placeholder="Image"
-        />
-        <Input fullWidth type="submit" style={{paddingBottom: "50px"}}/>
-      </form>
-
-    // }
-     )}
-      {/* <Footer>
-      {!isCameraOpen ? (
-           <button onClick={() => setIsCameraOpen(true)}>Open Camera</button>) : (
-           <button
-             onClick={() => {
-              setIsCameraOpen(false);
-              setCardImage(undefined);
-            }}
-         >
-             Close Camera
-           </button>
-        )}
-      </Footer> */}
-        </>
-
-    // }
-      // <Footer>
-      //   {!isCameraOpen ? (
-      //     <button onClick={() => setIsCameraOpen(true)}>Open Camera</button>) : (
-      //     <button
-      //       onClick={() => {
-      //         setIsCameraOpen(false);
-      //         setCardImage(undefined);
-      //       }}
-      //     >
-      //       Close Camera
-      //     </button>
-      //   )}
-      //   </Footer>
-      // </Root>
-      // <GlobalStyle />
-      // </Fragment>
-      
-    )
-}
+          </Root>
+        }
+        {cardImage && !loading && 
+          <form onSubmit={handleSubmit}>
+            <Input
+              fullWidth={true}
+              type="text"
+              name="name"
+              onChange={handleChange}
+              placeholder="Name (e.g. Bro Bowl Rail)"
+            />
+            <Select
+              fullWidth
+              type="text"
+              name="style"
+              value={style}
+              onChange={handleChange}
+              placeholder="Style"
+              displayEmpty={true}
+            >
+            {uniqueStyle.map(e =>        
+                <option value={e} key={e}>{e}</option>
+            )}
+            </Select>
+            <Map>
+            </Map>
+        
+            <input
+              fullWidth
+              type="image"
+              name="image"
+              value={"Image"}
+              style={{width: "100%"}}
+              src={cardImage}
+              onChange={handleChange}
+              placeholder="Image"
+            />
+            <Input fullWidth type="submit" style={{paddingBottom: "50px"}}/>
+          </form>
+        } 
+      </>  
+      )
+  }
 
 export default Post
