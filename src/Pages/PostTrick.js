@@ -40,6 +40,33 @@ export const PostTrick = props => {
         history.push('/');
         console.log("heres")
       }
+      const hiddenFileInput = React.useRef(null)
+
+      const handleClick = event => {
+        hiddenFileInput.current.click();
+      };
+
+      const handleOnChange = event => {
+        const fileUploaded = event.target.files[0];
+        var formdata = new FormData();
+
+            formdata.append("file", fileUploaded);
+            formdata.append("cloud_name", "dnoyhupey");
+            formdata.append("upload_preset", "cz0zvuq0");
+            fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
+                method: "post",
+                mode: "cors",
+                body: formdata
+            })
+            .then(r => r.json())
+            .then(data => {
+                console.log(data)
+                const videoUrl = data.url
+                setTrick({...trick, video: videoUrl})
+            });
+
+      };
+
     return (
         <>
             <AppBar position="fixed" >
@@ -55,39 +82,49 @@ export const PostTrick = props => {
                 </Grid>
             </AppBar>
             {!video ? (
-                <VideoRecorder
-                isOnInitially
-                countdownTime={0}
-                timeLimit={10000}
-                isFlipped
-                // replayVideoAutoplayAndLoopOff 
-                onRecordingComplete={(videoBlob, thumbnailBlob) => {
-                    // Do something with the video...
-                    var formdata = new FormData();
-
-                    formdata.append("file", videoBlob);
-                    formdata.append("cloud_name", "dnoyhupey");
-                    formdata.append("upload_preset", "cz0zvuq0");
-                    fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
-                        method: "post",
-                        mode: "cors",
-                        body: formdata
-                    })
-                    .then(r => r.json())
-                    .then(data => {
-                        console.log(data)
-                        const videoUrl = data.url
-                        setTrick({...trick, video: videoUrl})
-                    });
-                    // const videoUrl = window.URL.createObjectURL(videoBlob)
-                    // // const thumbnailUrl = window.URL.createObjectURL(thumbnail)
-                    // setVideoUrl(videoUrl)
-                    // setTrick({...trick, video: videoBlob})
-                    // console.log('videoBlob', videoBlob)
-                    // console.log(videoUrl)
-                }}
-                constraints={{ audio: true, video: { facingMode: { exact: "environment" } } }}
+                <>
+                <Root>
+                <Button variant="contained" style={{margin: 0}} onClick={handleClick}> Take Video </Button>
+                <input  
+                    type="file" 
+                    accept="video/*" 
+                    capture="environment"
+                    ref={hiddenFileInput}
+                    onChange={handleOnChange}
+                    style={{display: "none"}} 
                 />
+            
+                </Root>
+                
+                </>
+                // <VideoRecorder
+                // isOnInitially
+                // countdownTime={0}
+                // timeLimit={10000}
+                // isFlipped
+                // // replayVideoAutoplayAndLoopOff 
+                // onRecordingComplete={(videoBlob, thumbnailBlob) => {
+                //     // Do something with the video...
+                //     var formdata = new FormData();
+
+                //     formdata.append("file", videoBlob);
+                //     formdata.append("cloud_name", "dnoyhupey");
+                //     formdata.append("upload_preset", "cz0zvuq0");
+                //     fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
+                //         method: "post",
+                //         mode: "cors",
+                //         body: formdata
+                //     })
+                //     .then(r => r.json())
+                //     .then(data => {
+                //         console.log(data)
+                //         const videoUrl = data.url
+                //         setTrick({...trick, video: videoUrl})
+                //     });
+                  
+                // }}
+                // constraints={{ audio: true, video: { facingMode: { exact: "environment" } } }}
+                // />
                 
             ) : (
                 

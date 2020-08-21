@@ -34,6 +34,7 @@ export const Root = styled.main`
   align-items: center;
   height: 100%;
   background: silver;
+
   Button {
     background-color: #4CAF50;
     border: none;
