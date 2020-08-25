@@ -22,13 +22,13 @@ const Post = props => {
 
         // const {latitude, longitude} = props;
         // console.log(longitude, latitude)
-        const { history, spots, userId } = props;
+        const { history, spots, userId, setSelectedTab } = props;
         const dispatch = useDispatch();
         // spots = useSelector(state => state.spots);
         const [lat, lng] = useSelector(state => state.currentPosition)
         const [cardImage, setCardImage] = useState();
         console.log(lat, lng)
-
+        const [disabled, setDisabled] = useState(false)
         const [spot, setSpot] = useState({
             name: '',
             style: '',
@@ -58,8 +58,9 @@ const Post = props => {
         
         const handleSubmit = e => {
           e.preventDefault();
+          setDisabled(true)
+          history.push('/', setSelectedTab(0));
           dispatch(spotActions.newSpot(spot));
-          history.push('/');
           console.log("heres")
         }
 
@@ -152,7 +153,7 @@ const Post = props => {
               onChange={handleChange}
               placeholder="Image"
             />
-            <Input fullWidth type="submit" style={{paddingBottom: "50px"}}/>
+            <Input disabled={disabled} fullWidth type="submit" style={{paddingBottom: "50px"}}/>
           </form>
         } 
       </>  
