@@ -34,7 +34,7 @@ export const PostTrick = props => {
     const sports = ["Skateboard", "Inline Skating", "BMX", "Scooter", "Wheelchair"]
     const handleChange = e => 
     setTrick({ ...trick, [e.target.name]: e.target.value });
-
+   
     const handleSubmit = e => {
         e.preventDefault();
         dispatch(trickActions.newTrick(trick));
@@ -46,7 +46,9 @@ export const PostTrick = props => {
       const handleClick = event => {
         hiddenFileInput.current.click();
       };
-
+      useEffect(() => {
+        handleClick()
+      }, [])
       const handleOnChange = event => {
         setLoading(true)
         const fileUploaded = event.target.files[0];
@@ -100,34 +102,6 @@ export const PostTrick = props => {
                 </Root>
                 
                 </>
-                // <VideoRecorder
-                // isOnInitially
-                // countdownTime={0}
-                // timeLimit={10000}
-                // isFlipped
-                // // replayVideoAutoplayAndLoopOff 
-                // onRecordingComplete={(videoBlob, thumbnailBlob) => {
-                //     // Do something with the video...
-                //     var formdata = new FormData();
-
-                //     formdata.append("file", videoBlob);
-                //     formdata.append("cloud_name", "dnoyhupey");
-                //     formdata.append("upload_preset", "cz0zvuq0");
-                //     fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
-                //         method: "post",
-                //         mode: "cors",
-                //         body: formdata
-                //     })
-                //     .then(r => r.json())
-                //     .then(data => {
-                //         console.log(data)
-                //         const videoUrl = data.url
-                //         setTrick({...trick, video: videoUrl})
-                //     });
-                  
-                // }}
-                // constraints={{ audio: true, video: { facingMode: { exact: "environment" } } }}
-                // />
             } 
                 
             {video && !loading && 

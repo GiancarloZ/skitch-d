@@ -74,7 +74,9 @@ const Post = props => {
         const handleClick = event => {
           hiddenFileInput.current.click();
         };
-
+        useEffect(() => {
+          handleClick()
+        }, [])
         const handleOnChange = event => {
           setLoading(true)
           const fileUploaded = event.target.files[0];
