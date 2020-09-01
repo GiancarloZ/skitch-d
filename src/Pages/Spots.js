@@ -142,7 +142,9 @@ const Spots = props => {
         const handleOnClick = () => {
             history.push(`/spots/${id}`)
         }
-      
+        const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
+        const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&zoom=14&size=400x400&key=' + key
+        console.log(map)
         return(
             <React.Fragment key={spotId}>
                 {/* <Grid className={classes.grid}>  </Grid> */}
@@ -165,7 +167,7 @@ const Spots = props => {
                                             {spot.user_id.username}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">
-                                            <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b>
+                                            {/* <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b> */}
                                         </Typography>
                                     </Grid>
                              
@@ -173,7 +175,8 @@ const Spots = props => {
                                         <CardMedia
                                             component="img"
                                             className={classes.media}
-                                            image="/google-map-defualt.jfif"
+                                            // src={map}
+                                            image={map ? map : "/google-map-defualt.jfif"}
                                             title="Google Map Default"
                                         />
                                     </Grid>

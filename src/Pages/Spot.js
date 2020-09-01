@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
     image: {
         height: "350px"
     },
-    paper: {    
-        paddingBottom: 50,
+    paper: {   
+        height: "100%" 
+        // paddingBottom: 50,
     }
   }));
 
@@ -69,7 +70,8 @@ const Spot = props => {
         const handleOnClick = () => {
             history.push(`/spots/${id}`)
         }
-    
+        const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
+        const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&zoom=14&size=400x400&key=' + key
         return(
             <React.Fragment key={spotId}>
                 {/* <Grid className={classes.grid}>  </Grid> */}
@@ -104,7 +106,7 @@ const Spot = props => {
                                         <b>created by:</b> <b>{user_id}</b>
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
-                                        <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b>
+                                        {/* <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b> */}
                                     </Typography>
                                 </Grid>
                             
@@ -112,7 +114,7 @@ const Spot = props => {
                                     <CardMedia
                                         component="img"
                                         className={classes.media}
-                                        image="/google-map-defualt.jfif"
+                                        image={map ? map : "/google-map-defualt.jfif"}
                                         title="Google Map Default"
                                     />
                                 </Grid>

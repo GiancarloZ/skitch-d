@@ -60,7 +60,7 @@ const TrickCard = props => {
     const handleOnClick = () => {
         history.push(`/`)
     }
-  
+    
     return(
         <React.Fragment key={id}>
             {/* <Grid className={classes.grid}>  </Grid> */}
