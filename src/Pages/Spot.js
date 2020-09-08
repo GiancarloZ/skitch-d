@@ -71,7 +71,7 @@ const Spot = props => {
             history.push(`/spots/${id}`)
         }
         const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
-        const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&zoom=14&size=400x400&key=' + key
+        const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&markers=icon:http://tinyurl.com/2ftvtt6|' + lat + ',' + lng + '&zoom=14&size=400x400&sensor=false&key=' + key
         return(
             <React.Fragment key={spotId}>
                 {/* <Grid className={classes.grid}>  </Grid> */}

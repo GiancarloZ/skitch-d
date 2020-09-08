@@ -21,11 +21,14 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
+import { blue } from '@material-ui/core/colors';
 
 // import { CssBaseline, CircularProgress } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
+import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Map from '../Components/Map';
@@ -50,6 +53,9 @@ const useStyles = makeStyles(theme => ({
     list: {
         marginBottom: theme.spacing(1),
         marginTop: theme.spacing(0),
+    },
+    avatar: {
+        backgroundColor: blue[500],
     },
     subheader: {
         backgroundColor: theme.palette.background.paper,
@@ -89,13 +95,27 @@ const SpotCard = props => {
         history.push(`/spots/${id}`)
     }
     const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
-    const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&zoom=14&size=400x400&key=' + key
+
+    const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&markers=icon:http://tinyurl.com/2ftvtt6|' + lat + ',' + lng + '&zoom=14&size=400x400&sensor=false&key=' + key
     return(
         <React.Fragment key={id}>
             {/* <Grid className={classes.grid}>  </Grid> */}
 
             <Card className={classes.root} onClick={handleOnClick}>
                 <div className={classes.details}>
+                <CardHeader
+                className={classes.header}
+                avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                        N 
+                    </Avatar>
+                }
+                title={ 
+                    <Typography gutterBottom variant="h6" component="h2">
+                        NEW SPOT
+                    </Typography>
+                }
+            />
                 <CardActionArea>
                     <CardContent style={{padding:"0", margin: "0" }}>
                         <Grid container className={classes.typography}>

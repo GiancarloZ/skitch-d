@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
         // paddingRight: 0
       },
     paper: {
-      paddingBottom: 50
+    //   paddingBottom: 50
     },
     grid:{
         padding: 0,
@@ -28,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     list: {
         marginBottom: theme.spacing(1),
         marginTop: theme.spacing(1),
+    },
+    header: {
+        padding: 0
     },
     subheader: {
         backgroundColor: theme.palette.background.paper,
@@ -46,7 +49,8 @@ const useStyles = makeStyles(theme => ({
     },
     media: {
         width: "100%",
-        height: "100%"
+        // height: "100%",
+      
     },
     avatar: {
         backgroundColor: red[500],
@@ -60,20 +64,21 @@ const TrickCard = props => {
     const handleOnClick = () => {
         history.push(`/`)
     }
-    
+
     return(
         <React.Fragment key={id}>
             {/* <Grid className={classes.grid}>  </Grid> */}
 
             <Card className={classes.root} onClick={handleOnClick}>
             <CardHeader
+                className={classes.header}
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
                         N 
                     </Avatar>
                 }
                 title={ 
-                    <Typography gutterBottom variant="h4" component="h2" >
+                    <Typography gutterBottom variant="h6" component="h2">
                         NEW TRICK
                     </Typography>
                 }
@@ -98,22 +103,16 @@ const TrickCard = props => {
                                     </Typography>
                                 {/* </Grid> */}
                            
-                                <Grid container item className={classes.media}>
+                                <Grid container item className={classes.paper}>
                                 <Video
                                     // ref={el => (this.replayVideo = el)}
+                                    // className={classes.media}
                                     src={video}
                                     loop
                                     muted
                                     playsInline
                                     autoPlay={true}
                                 />
-    
-                                    {/* <CardMedia
-                                        component={"video"}
-                                        className={classes.media}
-                                        src={video}
-                                        title={name}
-                                    /> */}
                                 </Grid>
                          
                         {/* </Grid> */}
