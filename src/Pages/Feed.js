@@ -78,6 +78,7 @@ const Feed = props => {
       console.log(loading)
   }, [feed])
     console.log(feed)
+    console.log(spots)
     const text = user ? (
       <Typography variant="h4" align='center'>{user}'s Feed </Typography>
     ) : (
@@ -159,13 +160,14 @@ const Feed = props => {
               {!loading && feed.length > 10 &&
                   <>
                     {feed.map((p) => {
-                      if (p === spots[p.id-1]){
+                      console.log(p)
+                      if (spots.filter(o => (o === p))){
                         return  <SpotCard p={p} history={history}/>
                       } else 
-                      if (p === tricks[p.id-1]){
+                      if (tricks.filter(o => (o === p))){
                         return <TrickCard p={p} history={history}/>
                       } else 
-                      if (p === users[p.id -1 ]){
+                      if (users.filter(o => (o === p))){
                         getUserCard(p)
                       } else {
                         skeletonCard()

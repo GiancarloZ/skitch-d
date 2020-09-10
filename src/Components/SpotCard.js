@@ -129,7 +129,7 @@ const SpotCard = props => {
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         <b>created by:</b> <b>{user_id}</b>
-                                        {p.user_id.username}
+                                        {/* {p.user_id.username} */}
                                     </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p">
                                         {/* <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b> */}
