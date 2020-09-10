@@ -137,14 +137,16 @@ const Spots = props => {
     }
     
     const getSpotCard = (spotId, loading) => {
-        const spot = spots[spotId]
-        const { id, name, style, user_id, lat, lng, image } = spot
+        const spotRef = spots[spotId]
+        console.log(spotRef)
+        // const spotRef = [...spot]
+        const { id, name, style, user_id, lat, lng, image } = spotRef
         const handleOnClick = () => {
-            history.push(`/spots/${id}`)
+            history.push({pathname: `/spots/${id}`, state: spotRef})
         }
         const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
         const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&markers=icon:http://tinyurl.com/2ftvtt6|' + lat + ',' + lng + '&zoom=14&size=400x400&sensor=false&key=' + key
-        console.log(map)
+   
         return(
             <React.Fragment key={spotId}>
                 {/* <Grid className={classes.grid}>  </Grid> */}
@@ -164,7 +166,7 @@ const Spots = props => {
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">
                                             <b>created by:</b> <b>{user_id}</b>
-                                            {spot.user_id.username}
+                                            {/* {spot.user_id.username} */}
                                         </Typography>
                                         <Typography variant="body2" color="textSecondary" component="p">
                                             {/* <b>Latitude:</b> <b>{lat}</b><br></br><b>Longitude:</b> <b>{lng}</b> */}

@@ -160,7 +160,7 @@ const Feed = props => {
               {!loading && feed.length > 10 &&
                   <>
                     {feed.map((p) => {
-                      console.log(p)
+                   
                       if (spots.filter(o => (o === p))){
                         return  <SpotCard p={p} history={history}/>
                       } else 

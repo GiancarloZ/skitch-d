@@ -42,15 +42,23 @@ const useStyles = makeStyles(theme => ({
 const Spot = props => {
     const { match, history } = props;
     const { params } = match;
-    const { spotId } = params;
+    const {location} = history
+    const {state } = location
+  
+    const { spotId} = params;
+    console.log(params)
+    console.log(match)
+    console.log(history)
+    console.log(location)
+    console.log(state)
     const spots = useSelector(state => state.spots);
     const allTricks = useSelector(state => state.tricks);
     console.log(spotId)
     const [spot, setSpot] = React.useState(undefined)
     const [tricks, setTricks] = React.useState(undefined)
-
+    console.log(spot)
     useEffect(() => {
-        setSpot(spots[spotId - 1])
+        setSpot(state)
         const spotTricks = allTricks.filter(function(el) {
             console.log(el)
             return spotId.indexOf(el.spot_id) > -1;
@@ -63,9 +71,8 @@ const Spot = props => {
     const classes = useStyles()
     console.log(spots)
     console.log(spot)
-    console.log(history)
     const generateSpotCard = () => {
-        const spot = spots[spotId - 1]
+        
         const { id, name, style, user_id, lat, lng, image, trick_id } = spot
         const handleOnClick = () => {
             history.push(`/spots/${id}`)
@@ -73,7 +80,7 @@ const Spot = props => {
         const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
         const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&markers=icon:http://tinyurl.com/2ftvtt6|' + lat + ',' + lng + '&zoom=14&size=400x400&sensor=false&key=' + key
         return(
-            <React.Fragment key={spotId}>
+            <React.Fragment key={id}>
                 {/* <Grid className={classes.grid}>  </Grid> */}
                 <AppBar position="fixed" >
                 <Grid container alignItems="center" justify="space-between">

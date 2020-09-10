@@ -92,7 +92,8 @@ const SpotCard = props => {
     const classes = useStyles()
     const { id, name, style, user_id, lat, lng, image } = p
     const handleOnClick = () => {
-        history.push(`/spots/${id}`)
+        history.push({pathname: `/spots/${id}`, state: p})
+
     }
     const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
 
