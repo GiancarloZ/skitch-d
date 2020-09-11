@@ -37,7 +37,7 @@ const Post = props => {
             lat: lat,
             user_id: userId.id,
         })
-
+        const spotRef = spot
         console.log(spot)
         const [loading, setLoading] = useState(false)
 
@@ -140,7 +140,7 @@ const Post = props => {
                 <option value={e} key={e}>{e}</option>
             )}
             </Select>
-            <Map>
+            <Map props={spot}>
             </Map>
         
             <input

@@ -42,21 +42,17 @@ const useStyles = makeStyles(theme => ({
 const Spot = props => {
     const { match, history } = props;
     const { params } = match;
-    const {location} = history
-    const {state } = location
-  
-    const { spotId} = params;
+    const { location } = history
+    const { state } = location
+    const { spotId } = params;
     console.log(params)
     console.log(match)
     console.log(history)
-    console.log(location)
-    console.log(state)
     const spots = useSelector(state => state.spots);
     const allTricks = useSelector(state => state.tricks);
     console.log(spotId)
     const [spot, setSpot] = React.useState(undefined)
     const [tricks, setTricks] = React.useState(undefined)
-    console.log(spot)
     useEffect(() => {
         setSpot(state)
         const spotTricks = allTricks.filter(function(el) {
@@ -66,11 +62,11 @@ const Spot = props => {
         console.log(spotTricks)
         setTricks(spotTricks)
     }, [])
-    console.log(allTricks)
     console.log(tricks)
-    const classes = useStyles()
     console.log(spots)
     console.log(spot)
+    const classes = useStyles()
+
     const generateSpotCard = () => {
         
         const { id, name, style, user_id, lat, lng, image, trick_id } = spot

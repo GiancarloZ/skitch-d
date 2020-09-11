@@ -12,30 +12,32 @@ const Map = (props) => {
     const dispatch = useDispatch();
     const currentPosition = useSelector(state => state.currentPosition);
     console.log(currentPosition)
- 
+    console.log(props)
+    console.log(props.props['lat'])
     // const {latitude, longitude, error} = usePosition();
     const [mapState, setMapState] = useState({
         center: [currentPosition[0], currentPosition[1]],
         zoom: 14,
         draggable: true,
-        lat: currentPosition[0],
-        lng: currentPosition[1],
+        lat: props.props.lat,
+        lng: props.props.lng,
       })
       // dispatch(positionActions.setPosition(lat, lng))
       console.log(mapState)
      
     function onCircleInteraction(childKey, childProps, mouse) {
   
-        setMapState({
-            ...mapState,
-          draggable: false,
-          lat: mouse.lat,
-          lng: mouse.lng
-        });
-        const latLng = [mouse.lat, mouse.lng]
-        console.log(latLng)
-        dispatch(positionActions.setPosition(latLng))
-       
+        // setMapState({
+        //     ...mapState,
+        //   draggable: false,
+        //   lat: mouse.lat,
+        //   lng: mouse.lng
+        // });
+        // const latLng = [mouse.lat, mouse.lng]
+        // console.log(latLng)
+        // dispatch(positionActions.setPosition(latLng))
+        props.props.lat = mouse.lat
+        props.props.lng = mouse.lng
         console.log('onCircleInteraction called with', childKey, childProps, mouse);
     }
     useEffect(() => {
@@ -79,8 +81,8 @@ const Map = (props) => {
           onClick={() => console.log('mapClick')}  
         >
           <Marker
-            lat={lat}
-            lng={lng}
+            lat={props.props.lat}
+            lng={props.props.lng}
             text="My Marker"
             color="blue"
           />
