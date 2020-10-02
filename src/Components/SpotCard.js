@@ -102,8 +102,8 @@ const SpotCard = props => {
         <React.Fragment key={id}>
             {/* <Grid className={classes.grid}>  </Grid> */}
 
-            <Card className={classes.root} onClick={handleOnClick}>
-                <div className={classes.details}>
+            <Card className={classes.root} onClick={handleOnClick} key={id}>
+                <div className={classes.details} key={id}>
                 <CardHeader
                 className={classes.header}
                 avatar={

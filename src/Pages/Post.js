@@ -1,25 +1,23 @@
-import React, { useState, Fragment, useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import spotActions from '../redux/spotActions';
-// import { Camera } from "../Camera/index";
-import usePosition from '../Components/usePosition';
-import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle } from "./styles";
-import {Input, Select, Button, Grid, AppBar} from '@material-ui/core';
-
-import Camera, { FACING_MODES, IMAGE_TYPES }  from 'react-html5-camera-photo';
-import 'react-html5-camera-photo/build/css/index.css';
-
+import { Root } from "./styles";
+import {Input, Select, Button} from '@material-ui/core';
 import Map from '../Components/Map';
-import Icon from '@material-ui/core/Icon';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import ConfirmDialog from '../Components/ConfirmDialog'
+import MuiAlert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/core/styles';
 
-import LoginPage from '../Pages/Login';
-import Signup from '../Pages/Signup';
-import Spot from './Spot';
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 const Post = props => {
-
+    const classes = useStyles();
         // const {latitude, longitude} = props;
         // console.log(longitude, latitude)
         const { history, spots, userId, setSelectedTab } = props;
@@ -27,7 +25,10 @@ const Post = props => {
         // spots = useSelector(state => state.spots);
         const [lat, lng] = useSelector(state => state.currentPosition)
         const [cardImage, setCardImage] = useState();
+        const [deleteToken, setDeleteToken] = useState();
+        console.log(deleteToken)
         console.log(lat, lng)
+        console.log(userId)
         const [disabled, setDisabled] = useState(false)
         const [spot, setSpot] = useState({
             name: '',
@@ -42,7 +43,9 @@ const Post = props => {
         const [loading, setLoading] = useState(false)
 
         // Controlled form functions
-  
+        function Alert(props) {
+          return <MuiAlert elevation={6} variant="filled" {...props} />;
+        }
         const handleChange = e => 
           setSpot({ ...spot, [e.target.name]: e.target.value });
 
@@ -55,7 +58,12 @@ const Post = props => {
           setSpot(newSpot)
         
         }, [])
+        useEffect(() => {
+     
+          const newSpot = {...spot, user_id: userId.id};
+          setSpot(newSpot)
         
+        }, [userId])
         const handleSubmit = e => {
           e.preventDefault();
           setDisabled(true)
@@ -68,23 +76,39 @@ const Post = props => {
           history.goBack()
           console.log("clicked")
         }
-        const {name, style, level, image} = spot;
+        const {name, style, level, image, user_id} = spot;
+        console.log(user_id)
         const uniqueStyle = [...new Set(spots.map(item => item.style))];
 
         const hiddenFileInput = React.useRef(null)
         const handleClick = event => {
           hiddenFileInput.current.click();
         };
+
+        const notLoggedIn = () => {
+          return (
+            <div className={classes.root}>
+              <Alert severity="error">Must be logged in to post!</Alert>
+            </div>
+          )
+        }
+  
         useEffect(() => {
-          handleClick()
+          if (user_id === undefined){
+            notLoggedIn()
+          } else {
+            handleClick()
+          }
         }, [])
         const handleOnChange = event => {
           setLoading(true)
+   
           const fileUploaded = event.target.files[0];
           var formdata = new FormData();
           formdata.append("file", fileUploaded);
           formdata.append("cloud_name", "dnoyhupey");
           formdata.append("upload_preset", "cz0zvuq0");
+          console.log(formdata)
           fetch(`https://api.cloudinary.com/v1_1/dnoyhupey/auto/upload`, { 
               method: "post",
               mode: "cors",
@@ -94,15 +118,62 @@ const Post = props => {
           .then(data => {
               console.log(data)
               const imageUrl = data.url
+              const token = data.delete_token
+              console.log(token)
               setSpot({...spot, image: imageUrl})
               setCardImage(imageUrl);
+              setDeleteToken(token)
+              console.log(deleteToken)
               setLoading(false)
+              
           });
-  
         };
+        const deleteFile = () => {
+          // console.log(token)
+          var formdata = new FormData();
+          console.log(deleteToken)
+          formdata.append("token", deleteToken);
+  
+          fetch(
+            "https://api.cloudinary.com/v1_1/dnoyhupey/delete_by_token",
+            {
+              method: "post",
+              mode: "cors",
+              body: formdata
+            }
+          )
+          .then(r => r.json())
+          .then(data => {
+            console.log(data)
+          })
+        };
+        const confirm = () => {
+          console.log("does this get cllaed")
+          return (
+            <ConfirmDialog
+            title="Discard Spot?"
+            open={true}
+            setOpen={true}
+            onConfirm={deleteFile()}
+            >
+              Are you sure you want to discard?
+            </ConfirmDialog>
+          )
+        }
+        useEffect(() => {
+          return () => {
+            if (!!deleteToken){
+              deleteFile()
+            }
+          }
+        }, [deleteToken])
+  
 
     return (
       <>
+        {!user_id &&
+          notLoggedIn()
+        }
         {!cardImage && loading && <Root><h3 style={{paddingTop: 50}}>uploading image....</h3></Root>}
         {!cardImage && !loading &&
           <Root>

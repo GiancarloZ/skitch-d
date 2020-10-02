@@ -69,7 +69,7 @@ const TrickCard = props => {
         <React.Fragment key={id}>
             {/* <Grid className={classes.grid}>  </Grid> */}
 
-            <Card className={classes.root} onClick={handleOnClick}>
+            <Card className={classes.root} onClick={handleOnClick} key={id}>
             <CardHeader
                 className={classes.header}
                 avatar={
