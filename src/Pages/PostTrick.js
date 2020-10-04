@@ -2,15 +2,11 @@ import React, { useState, Fragment, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import trickActions from '../redux/trickActions';
 // import { Camera } from "../Camera/index";
-import usePosition from '../Components/usePosition';
-import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle, Video } from "./styles";
+import { Root, Video } from "./styles";
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
-import Camera, { FACING_MODES, IMAGE_TYPES }  from 'react-html5-camera-photo';
 import 'react-html5-camera-photo/build/css/index.css';
-import Map from '../Components/Map';
-import VideoRecorder from 'react-video-recorder'
-import {Button, AppBar, Grid, Paper, CardMedia } from '@material-ui/core';
+import {Button, AppBar, Grid } from '@material-ui/core';
 
 
 export const PostTrick = props => {

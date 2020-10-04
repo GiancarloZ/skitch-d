@@ -1,12 +1,11 @@
 import React from 'react'
-import {CircularProgress, Button, AppBar, Grid, Paper, Card, CardActions, Typography, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
+import {CircularProgress, Button, Grid, Paper, Card, CardActions, Typography, CardContent, CardActionArea } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import StarBorder from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
-import PostTrick from './PostTrick'
-import { Root, Preview, Footer, GlobalStyle, Cam, FormStyle, Video } from "./styles";
+import { Video } from "./styles";
 
 const useStyles = makeStyles(theme => ({
     root: {

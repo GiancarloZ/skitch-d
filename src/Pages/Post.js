@@ -64,6 +64,7 @@ const Post = props => {
           setSpot(newSpot)
         
         }, [userId])
+
         const handleSubmit = e => {
           e.preventDefault();
           setDisabled(true)
@@ -162,7 +163,7 @@ const Post = props => {
         }
         useEffect(() => {
           return () => {
-            if (!!deleteToken){
+            if (!!deleteToken && !user_id){
               deleteFile()
             }
           }
