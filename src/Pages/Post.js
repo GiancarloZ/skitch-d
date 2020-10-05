@@ -70,7 +70,7 @@ const Post = props => {
           setDisabled(true)
           history.push('/', setSelectedTab(0));
           dispatch(spotActions.newSpot(spot));
-          console.log("heres")
+          setDeleteToken("")
         }
 
         const handleOnClick = () => {
