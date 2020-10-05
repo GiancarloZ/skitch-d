@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import spotActions from '../redux/spotActions';
 import { Root } from "./styles";
-import {Input, Select, Button} from '@material-ui/core';
+import {Input, Select, Button, CircularProgress} from '@material-ui/core';
 import Map from '../Components/Map';
 import ConfirmDialog from '../Components/ConfirmDialog'
 import MuiAlert from '@material-ui/lab/Alert';
@@ -68,9 +68,11 @@ const Post = props => {
         const handleSubmit = e => {
           e.preventDefault();
           setDisabled(true)
+          setDeleteToken("")
+          setLoading(true)
           history.push('/', setSelectedTab(0));
           dispatch(spotActions.newSpot(spot));
-          setDeleteToken("")
+          setLoading(false)
         }
 
         const handleOnClick = () => {
@@ -100,7 +102,7 @@ const Post = props => {
           } else {
             handleClick()
           }
-        }, [])
+        }, [user_id])
         const handleOnChange = event => {
           setLoading(true)
    
@@ -228,6 +230,9 @@ const Post = props => {
             <Input disabled={disabled} fullWidth type="submit" style={{paddingBottom: "50px"}}/>
           </form>
         } 
+        {cardImage && loading && 
+          <CircularProgress/>
+        }
       </>  
       )
   }
