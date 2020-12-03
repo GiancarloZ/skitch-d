@@ -93,12 +93,12 @@ const SpotCard = props => {
                 className={classes.header}
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        N 
+                        S
                     </Avatar>
                 }
                 title={ 
                     <Typography gutterBottom variant="h6" component="h2">
-                        NEW SPOT
+                            {name}
                     </Typography>
                 }
             />
@@ -107,9 +107,9 @@ const SpotCard = props => {
                         <Grid container className={classes.typography}>
                             {/* {loading ? ( */}
                                 <Grid item className={classes.map}>
-                                    <Typography gutterBottom variant="h4" component="h2" >
+                                    {/* <Typography gutterBottom variant="h4" component="h2" >
                                         {name}
-                                    </Typography>
+                                    </Typography> */}
                                     <Typography variant="body2" color="textSecondary" component="p" >
                                         <b>Style:</b> {style}
                                     </Typography>

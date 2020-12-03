@@ -79,6 +79,7 @@ const Feed = props => {
   }, [feed])
     console.log(feed)
     console.log(spots)
+    console.log(tricks)
     const text = user ? (
       <Typography variant="h4" align='center'>{user}'s Feed </Typography>
     ) : (
@@ -160,20 +161,32 @@ const Feed = props => {
               {!loading && feed.length > 10 &&
                   <>
                     {feed.map((p) => {
-                   
-                      if (spots.filter(o => (o === p))){
-                        return  <SpotCard p={p} history={history}/>
-                      } else 
-                      if (tricks.filter(o => (o === p))){
-                        return <TrickCard p={p} history={history}/>
-                      } else 
-                      if (users.filter(o => (o === p))){
+
+                      if (p.image !== undefined){
+                        return <SpotCard p={p} history={history}/>
+                      } else
+                      if (p.video !== undefined) {
+                        return <TrickCard p={p} history={history} />
+                      } else
+                      if (p.username !== undefined){
                         getUserCard(p)
                       } else {
                         skeletonCard()
                       }
-                    })
-                    }
+      
+                      // if (spots.filter(o => (o === p)) ){
+                      //   return <SpotCard p={p} history={history}/>
+                      // } else
+                      // if (tricks.filter(o => (o === p))) {
+                      //   return <TrickCard p={p} history={history}/>
+                      // } else
+                      // if (users.filter(o => (o === p))){
+                      //   getUserCard(p)
+                      // } else {
+                      //   skeletonCard()
+                      // }
+
+                    })}
                   </>
               } 
             </Paper>

@@ -75,7 +75,7 @@ export const FormStyle = styled.form`
 `;
 
 export const Video = styled.video`
-  height: 100%;
+  height: 450px;
   width: 100%;
   object-fit: fill;
   ${props =>

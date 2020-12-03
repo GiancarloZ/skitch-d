@@ -60,6 +60,8 @@ const TrickCard = props => {
     const {history, p} = props;
     const classes = useStyles()
     const {id, name, ride, video, user_id, spot_id, created_at} = p
+    const railDefault = "/rails-default.jpg"
+
     // const videoUrl = JSON.parse(video).secure_url
     const handleOnClick = () => {
         history.push(`/`)
@@ -74,12 +76,12 @@ const TrickCard = props => {
                 className={classes.header}
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        N 
+                        T 
                     </Avatar>
                 }
                 title={ 
-                    <Typography gutterBottom variant="h6" component="h2">
-                        NEW TRICK
+                    <Typography gutterBottom variant="h4" component="h4">
+                        {name}
                     </Typography>
                 }
             />
@@ -89,9 +91,9 @@ const TrickCard = props => {
                         {/* <Grid container className={classes.typography}> */}
                        
                                 {/* <Grid item className={classes.map}> */}
-                                    <Typography gutterBottom variant="h4" component="h2" >
+                                    {/* <Typography gutterBottom variant="h4" component="h2" >
                                         {name}
-                                    </Typography>
+                                    </Typography> */}
                                     <Typography variant="body2" color="textSecondary" component="p" >
                                         <b>RIDE:</b> {ride}
                                     </Typography>
@@ -113,6 +115,9 @@ const TrickCard = props => {
                                     playsInline
                                     autoPlay={true}
                                 />
+                                {/* <Video cloudName="dnoyhupey" publicId={video ? video : railDefault}>
+                                    <Transformation overlay="text:arial_60:watchme" gravity="north" y="20" />
+                                </Video> */}
                                 </Grid>
                          
                         {/* </Grid> */}

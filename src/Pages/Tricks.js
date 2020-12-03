@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import { Video } from "./styles";
-
+import TrickCard from "../Components/TrickCard"
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -151,7 +151,8 @@ const Tricks = props => {
         {/* {tricks === undefined && <CircularProgress/> } */}
         {tricks.length > 0 ? (
             tricks.reverse().map( (trick) => 
-                getTrickCard(trick)
+                // getTrickCard(trick)
+                <TrickCard p={trick} history={history}/>
             )
         ) : (<Typography variant="h6" >No tricks have been posted on this spot! Be the first!</Typography>)}
         </>
