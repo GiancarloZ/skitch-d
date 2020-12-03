@@ -85,7 +85,7 @@ const Feed = props => {
       <Typography variant="h4" align='center' >Global Feed</Typography>
     );
     const tally = (
-        <Grid direction container alignItems="center" alignContent="center" justify="space-evenly" className={classes.root}>
+        <Grid container alignItems="center" alignContent="center" justify="space-evenly" className={classes.root}>
         <Grid item> <h3>Spots: {spots.length} </h3></Grid>
         <Divider orientation="vertical" flexItem /> 
         <Grid item> <h3>Tricks: {tricks.length}</h3>   </Grid>

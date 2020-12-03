@@ -7,6 +7,7 @@ import Map from '../Components/Map';
 import ConfirmDialog from '../Components/ConfirmDialog'
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,9 +50,6 @@ const Post = props => {
         const handleChange = e => 
           setSpot({ ...spot, [e.target.name]: e.target.value });
 
-        const handleMapChange = e => 
-          setSpot({ ...spot, lat: e.lat, lng: e.lng });
-
         useEffect(() => {
      
           const newSpot = {...spot, lat: lat, lng: lng};
@@ -69,10 +67,8 @@ const Post = props => {
           e.preventDefault();
           setDisabled(true)
           setDeleteToken("")
-          setLoading(true)
+          dispatch(spotActions.newSpot(spot))
           history.push('/', setSelectedTab(0));
-          dispatch(spotActions.newSpot(spot));
-          setLoading(false)
         }
 
         const handleOnClick = () => {
@@ -216,8 +212,8 @@ const Post = props => {
             </Select>
             <Map props={spot}>
             </Map>
-        
-            <input
+            <Image cloudName="dnoyhupey" publicId={cardImage} width="100%" crop="scale" />
+            {/* <input
               fullWidth
               type="image"
               name="image"
@@ -226,7 +222,7 @@ const Post = props => {
               src={cardImage}
               onChange={handleChange}
               placeholder="Image"
-            />
+            /> */}
             <Input disabled={disabled} fullWidth type="submit" style={{paddingBottom: "50px"}}/>
           </form>
         } 

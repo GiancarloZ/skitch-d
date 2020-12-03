@@ -15,7 +15,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 
 const useStyles = makeStyles(theme => ({
@@ -133,15 +133,16 @@ const SpotCard = props => {
                            
                         </Grid>
                        
-                            <CardMedia
+                            {/* <CardMedia
                                 component="img"
                                 className={classes.image}
                                 image={image ? image : railDefault}
                                 title={name}                                
                                 // height="100"
                                 width="151"
-                            />
-                       
+                            /> */}
+                        <Image cloudName="dnoyhupey" publicId={image ? image : railDefault} width="100%" height="450px" crop="scale" />
+
                     </CardContent>
                 </CardActionArea>
                 <CardActions>

@@ -98,6 +98,17 @@ const Home = props => {
       dispatch(trickActions.loadAllTricks())
       dispatch(userActions.loadAllUsers())
     }, [dispatch])
+    
+    // useEffect(()=>{
+    //   const timer = setTimeout(() => {
+    //     console.log("timeout")
+    //     dispatch(spotActions.loadAllSpots())
+    //     dispatch(trickActions.loadAllTricks())
+    //     dispatch(userActions.loadAllUsers())
+    //   }
+    //   , 3000)
+    //   return () => clearTimeout(timer);
+    // }, [])
 
     const classes = useStyles();
     const [selectedTab, setSelectedTab] = React.useState(undefined ? 0 : indexToTabName[page]);
