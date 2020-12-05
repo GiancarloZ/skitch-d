@@ -80,6 +80,7 @@ const Feed = props => {
     console.log(feed)
     console.log(spots)
     console.log(tricks)
+    console.log(users)
     const text = user ? (
       <Typography variant="h4" align='center'>{user}'s Feed </Typography>
     ) : (

@@ -90,7 +90,7 @@ const persistUser = () => dispatch => {
       Authorization: `bearer ` + localStorage.token
     }
   };
-  fetch(HEROKU_URL + '/persist', config)
+  fetch(HEROKU_URL + '/auth', config)
     .then(r => r.json())
     .then(userInstance => {
       dispatch(setUserAction(userInstance));

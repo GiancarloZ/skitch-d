@@ -94,11 +94,14 @@ const Home = props => {
     }
 
     useEffect(()=>{
+      dispatch(userActions.persistUser())
       dispatch(spotActions.loadAllSpots())
       dispatch(trickActions.loadAllTricks())
       dispatch(userActions.loadAllUsers())
+     
     }, [dispatch])
     
+ 
     // useEffect(()=>{
     //   const timer = setTimeout(() => {
     //     console.log("timeout")
