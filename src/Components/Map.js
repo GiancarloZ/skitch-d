@@ -70,7 +70,7 @@ const Map = (props) => {
  
         <div style={{ height: '350px', width: '100%' }}>
         <GoogleMapReact draggable={draggable}
-          bootstrapURLKeys={{ key: "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0" }}
+          bootstrapURLKeys={{ key: GOOGLE_API }}
           defaultCenter={center}
           defaultZoom={zoom}
           onChange={onChange}

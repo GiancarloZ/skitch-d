@@ -41,8 +41,9 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         backgroundColor: blue[500],
     },
-    subheader: {
-        backgroundColor: theme.palette.background.paper,
+    header: {
+        // backgroundColor: theme.palette.background.paper,
+        height: "45px"
     },
     details: {
         display: 'flex',
@@ -51,6 +52,7 @@ const useStyles = makeStyles(theme => ({
     },
     typography: {
         width:"100%",
+        height: 150,
         flexDirection: 'row',
     },
     map: {
@@ -58,14 +60,14 @@ const useStyles = makeStyles(theme => ({
         height: "100%"
     },
     media: {
-        height: "auto"
+        height: "inherit"
     },
     bigMedia: {
         height: "120px",
         width: "100%"
     },
     image: {
-        height: "300px"
+        height: "340px"
     },
   }));
 
@@ -81,7 +83,7 @@ const SpotCard = props => {
 
     }
     const key = "AIzaSyDA7WH7dJ9TH95f6uprlugmQMPNp9GeVq0"
-
+    const publicId = image ? image.split("/")[7].split(".jpg")[0] : null
     const map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lng + '&markers=icon:http://tinyurl.com/2ftvtt6|' + lat + ',' + lng + '&zoom=14&size=400x400&sensor=false&key=' + key
     return(
         <React.Fragment key={id}>
@@ -96,20 +98,25 @@ const SpotCard = props => {
                         S
                     </Avatar>
                 }
-                title={ 
+                
+                // action={
+                //     <Button>...</Button>
+                // }
+                title={
                     <Typography gutterBottom variant="h6" component="h2">
-                            {name}
-                    </Typography>
+                            Created By: 
+                    </Typography>               
                 }
-            />
+                      
+                />
                 <CardActionArea>
                     <CardContent style={{padding:"0", margin: "0" }}>
                         <Grid container className={classes.typography}>
                             {/* {loading ? ( */}
                                 <Grid item className={classes.map}>
-                                    {/* <Typography gutterBottom variant="h4" component="h2" >
+                                    <Typography gutterBottom variant="h4" component="h2" >
                                         {name}
-                                    </Typography> */}
+                                    </Typography>
                                     <Typography variant="body2" color="textSecondary" component="p" >
                                         <b>Style:</b> {style}
                                     </Typography>
@@ -132,16 +139,29 @@ const SpotCard = props => {
                                 </Grid>
                            
                         </Grid>
+                  
+                            <CloudinaryContext cloudName="dnoyhupey" >
+                                <Image publicId={publicId ? publicId : "/rails-default.jpg"}  effect="sharpen" quality={100}  style={{width: "100%"}}/>
+                            </CloudinaryContext>
                        
-                            {/* <CardMedia
+
+                            {/*                        
+                            <CardMedia
                                 component="img"
                                 className={classes.image}
-                                image={image ? image : railDefault}
+                                image={image ? image : "/rails-default.jpg"}
                                 title={name}                                
                                 // height="100"
                                 width="151"
                             /> */}
-                        <Image cloudName="dnoyhupey" publicId={image ? image : railDefault} width="100%" height="450px" crop="scale" />
+                          
+                        {/* <Image cloudName="dnoyhupey" publicId={image ? image : railDefault} width="100%"eight="100%"  > */}
+                            {/* <Transformation width="250" height="250" crop="limit" /> */}
+                            {/* <Transformation height="400px" width="100%" crop="fill" /> */}
+                            {/* <Transformation quality="auto:best"/>
+                            <Transformation aspectRatio="4:3" crop="fill" />
+                            <Transformation width="auto" dpr="auto" crop="scale" />  */}
+                        {/* </Image> */}
 
                     </CardContent>
                 </CardActionArea>
