@@ -133,7 +133,6 @@ const SpotCard = props => {
                                     <CardMedia
                                         component="img"
                                         className={classes.media}
-                                        // src={map}
                                         image={map ? map : "/google-map-defualt.jfif"}
                                         title="Google Map Default"
                                     />
@@ -141,20 +140,17 @@ const SpotCard = props => {
                            
                         </Grid>
                   
-                            <CloudinaryContext cloudName="dnoyhupey" >
+                            {/* <CloudinaryContext cloudName="dnoyhupey" >
                                 <Image publicId={publicId ? publicId : "/rails-default.jpg"}  effect="sharpen" quality={100}  style={{width: "100%"}}/>
-                            </CloudinaryContext>
-                       
-
-                            {/*                        
+                            </CloudinaryContext> */}
                             <CardMedia
-                                component="img"
-                                className={classes.image}
-                                image={image ? image : "/rails-default.jpg"}
-                                title={name}                                
-                                // height="100"
-                                width="151"
-                            /> */}
+                                    component="img"
+                                    className={classes.image}
+                                    image={image ? image : "/rails-default.jpg"}
+                                    title="Rail Default"
+                                    // height="100"
+                                    width="151"
+                                />
                           
                         {/* <Image cloudName="dnoyhupey" publicId={image ? image : railDefault} width="100%"eight="100%"  > */}
                             {/* <Transformation width="250" height="250" crop="limit" /> */}
