@@ -5,7 +5,6 @@ import trickActions from '../redux/trickActions';
 import { Root, Video } from "./styles";
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
-import 'react-html5-camera-photo/build/css/index.css';
 import {Button, AppBar, Grid } from '@material-ui/core';
 
 
