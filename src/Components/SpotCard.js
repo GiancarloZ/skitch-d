@@ -133,7 +133,7 @@ const SpotCard = props => {
                                     <CardMedia
                                         component="img"
                                         className={classes.media}
-                                        image={map ? map : "/google-map-defualt.jfif"}
+                                        image={map ? map : "../google-map-defualt.jfif"}
                                         title="Google Map Default"
                                     />
                                 </Grid>
